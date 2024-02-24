@@ -17,7 +17,7 @@ const OwnerRoom = () => {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [locationName, setLocationName] = useState("");
-
+ 
   const handleLocationSelect = (lat, lng) => {
     // setLocationName(locname); 
     setLatitude(lat);
@@ -62,7 +62,7 @@ const OwnerRoom = () => {
       locationFormData.append("name", locationName);
       locationFormData.append("latitude", latitude);
       locationFormData.append("longitude", longitude);
-      locationFormData.append("room_id", roomResponse.data.id);  
+      locationFormData.append("room", roomResponse.data.id);  
 
       const locationResponse = await axios.post(
         "http://localhost:8000/api/v1/myapp/location/",
@@ -222,7 +222,10 @@ const OwnerRoom = () => {
             />
           ))}
         </div>
-        
+        <label>
+          Enter Location Name
+          <input type="text" onChange={(e)=>{setLocationName(e.target.value)}}/>
+        </label>
         <button type="button" >
           Select Location
         </button>
