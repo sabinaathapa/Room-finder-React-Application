@@ -7,17 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import App from '../../App';
 
 
+const HeaderCommon=()=> {
+  const navigate = useNavigate();
 
-function HeaderCommon() {
-  function LoginClick(){
-    const navigate = useNavigate();
-
-    const handleLoginClick = () => {
-      // Use the navigate function to go to the "/login" page
-      navigate('/login');
-    };
+  const LoginClick = () => {
+    navigate('/login');
   }
+
   return (
+    
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand href="/">Hamro Room</Navbar.Brand>
