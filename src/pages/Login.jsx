@@ -5,10 +5,10 @@ import Footer from "../components/headerfooter/Footer";
 import Login from "../components/Login";
 
 function LoginPage(){
-    <>
-    <HeaderCommon/>
-    <Login/>
-    <Footer/>
-    </>
+   return  <>
+   <HeaderCommon/>
+   <Login/>
+   <Footer/>
+   </>
 }
 export default LoginPage;

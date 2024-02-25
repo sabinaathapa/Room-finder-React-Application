@@ -20,7 +20,7 @@ function HeaderCommon() {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">Hamro Room</Navbar.Brand>
+        <Navbar.Brand href="/">Hamro Room</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">

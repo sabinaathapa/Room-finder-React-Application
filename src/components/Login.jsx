@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Form, Button } from "react-bootstrap";
 
 const Login=()=>{
     const [username, setUsername] = useState('');
@@ -29,19 +30,21 @@ const Login=()=>{
 
     return(
         <React.Fragment>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Username
-                    <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}}/>
-                </label><br/>
 
-                <label>
-                    Password
-                    <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
-                </label><br/>
+        <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onSubmit={handleSubmit}>
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="name@example.com" value={username} onChange={(e)=>{setUsername(e.target.value)}} />
+            </Form.Group>
 
-                <button type="submit">Login</button>
-            </form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onSubmit={handleSubmit}>
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} />
+            </Form.Group>
+
+            <Button variant="outline-info" type="submit">Login</Button>
+    
+            </Form>
         </React.Fragment>
     )
 }

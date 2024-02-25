@@ -6,7 +6,7 @@ import LoginPage from "./pages/Login";
 import ProfilePicture from "./components/ProfilePicture";
 import DocumentUpload from "./components/DocumentUpload";
 import Room from "./components/Room";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import Location from "./components/Location";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
