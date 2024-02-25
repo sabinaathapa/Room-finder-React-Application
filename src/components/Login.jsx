@@ -31,14 +31,14 @@ const Login=()=>{
     return(
         <React.Fragment>
 
-        <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onSubmit={handleSubmit}>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" value={username} onChange={(e)=>{setUsername(e.target.value)}} />
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="username" value={username} onChange={(e)=>{setUsername(e.target.value)}} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" onSubmit={handleSubmit}>
-                <Form.Label>Email address</Form.Label>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+                <Form.Label>Password</Form.Label>
                 <Form.Control type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} />
             </Form.Group>
 

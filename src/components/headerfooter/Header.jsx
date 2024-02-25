@@ -40,7 +40,7 @@ function HeaderCommon() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <a href='/login'><Button variant="outline-info" onClick={'LoginClick'}>Login</Button></a>
+            <Button variant="outline-info" onClick={LoginClick}>Login</Button> 
           </Nav>
         </Navbar.Collapse>
       </Container>
