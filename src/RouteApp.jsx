@@ -7,6 +7,7 @@ import ProfilePicture from "./components/ProfilePicture";
 import DocumentUpload from "./components/DocumentUpload";
 import Room from "./components/Room";
 import Home from "./pages/Home";
+import SearchResult from "./pages/SearchResult";
 import Location from "./components/Location";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -22,6 +23,7 @@ const RouteApp=()=>{
             <Route path="/document-upload" element={<DocumentUpload/>}/>
             <Route path="/room" element={<Room/>}/>  
             <Route path="/location" element={<Location/>}/>
+            <Route path="/search-room" element={<SearchResult/>}/>
          </Routes>
     </Router>
     );
