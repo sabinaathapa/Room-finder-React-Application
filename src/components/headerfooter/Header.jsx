@@ -23,7 +23,7 @@ const HeaderCommon=()=> {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#features">Explore Rooms</Nav.Link>
-            <Nav.Link href="#pricing">Search Rooms</Nav.Link>
+            <Nav.Link href="/#roomSearchBar">Search Rooms</Nav.Link>
             <Nav.Link href="#pricing">Near You</Nav.Link>
             <NavDropdown title="Services" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -38,7 +38,7 @@ const HeaderCommon=()=> {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Button variant="outline-info" onClick={LoginClick}>Login</Button> 
+            <Button variant="outline-primary" onClick={LoginClick}>Login</Button> 
           </Nav>
         </Navbar.Collapse>
       </Container>

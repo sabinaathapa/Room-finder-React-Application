@@ -6,7 +6,8 @@ import { faFacebookF, faTwitter, faGoogle, faInstagram, faLinkedin, faGithub } f
 
 const Footer = () => {
   return (
-    <footer className='text-center text-lg-start text-muted'>
+    <footer className='text-center text-lg-start text-muted my-5'>
+      <hr></hr>
       <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
         <div className='me-5 d-none d-lg-block'>
           <span>Get connected with us on social networks:</span>

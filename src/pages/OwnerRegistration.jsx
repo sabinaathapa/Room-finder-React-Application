@@ -1,12 +1,12 @@
 import React from "react";
 import HeaderCommon from "../components/HeaderFooter/Header";
 import Footer from "../components/headerfooter/Footer";
-import TenantRegistration from "../components/TenantRegistration";
+import OwnerRegistration from "../components/OwnerRegistration";
 
 function LoginPage(){
    return  <>
    <HeaderCommon/>
-   <TenantRegistration/>
+   <OwnerRegistration/>
    <Footer/>
    </>
 }
