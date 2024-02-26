@@ -14,8 +14,12 @@ const SearchBar = () => {
   return (
     <Container className='my-5 center mx-auto' id="roomSearchBar">
       <Row className="justify-content-center">
+
+        <div className="text-center">
         <h2>Search for a Room</h2>
-        <p>Use the search bar below to search for the room. </p>
+          <p>Use the search bar below to search for the room. </p>
+        </div>
+      
         <Col className="mb-1">
           <Form onSubmit={handleSubmit}>
             <Row>
@@ -42,15 +46,17 @@ const SearchBar = () => {
               </Col>
             </Row>
           </Form>
-        </Col>
 
-        <br /><br />
+          <br /><br />
         <h5>Guide</h5>
         <ul>
             <li>Enter the location where you want a room nearby.</li>
             <li>Enter the search radius.</li>
             <li>Hit the search button. </li>
         </ul>
+        </Col>
+
+    
       </Row>
     </Container>
   );

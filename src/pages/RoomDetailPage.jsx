@@ -1,18 +1,18 @@
 import React from "react";
 import HeaderCommon from "../components/HeaderFooter/Header";
 import Footer from "../components/headerfooter/Footer";
-import GridCard from "../components/GridCard";
+import DetailRoom from "../components/DetailRoom";
 import { Container } from "react-bootstrap";
 
-function LoginPage(){
+function RoomDetailPage(){
    return  <>
    <HeaderCommon/>
    <Container className="my-5">
-      <h3>Search Result</h3>
-      <p>Below are the room in proximity to the location you selected.</p>
+      <h3>Room Details</h3>
+      <p>Below is the detailed description of the room. </p>
    </Container>
-   <GridCard/>
+   <DetailRoom/>
    <Footer/>
    </>
 }
-export default LoginPage;
+export default RoomDetailPage;

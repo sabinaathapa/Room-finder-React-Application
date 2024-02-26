@@ -1,57 +1,81 @@
 import React from "react";
-import { Form, Button , Row, Container, Col, Card, CardGroup} from "react-bootstrap";
+import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, CardText, Badge, Button,  } from "react-bootstrap"; // Import needed components
 
-function GridCard(){
-    return <>
-        <Container className="my-5">
-            <Row>
-                <h2>Your Search Results</h2>
-            </Row>
-            <CardGroup>
-                <Card>
-                    <Card.Img variant="top" src="holder.js/100px160" />
-                    <Card.Body>
-                    <Card.Title>Card title</Card.Title>
-                    <Card.Text>
-                        This is a wider card with supporting text below as a natural lead-in
-                        to additional content. This content is a little bit longer.
-                    </Card.Text>
-                    </Card.Body>
-                    <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
-                    </Card.Footer>
-                </Card>
 
-                <Card>
-                    <Card.Img variant="top" src="holder.js/100px160" />
-                    <Card.Body>
-                    <Card.Title>Card title</Card.Title>
-                    <Card.Text>
-                        This card has supporting text below as a natural lead-in to
-                        additional content.{' '}
-                    </Card.Text>
-                    </Card.Body>
-                    <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
-                    </Card.Footer>
-                </Card>
+function GridCard() {
+  const productData = [
+    {
+      id: 1,
+      image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
+      title: "Room Location",
+      ownerName: "Ramesh Man Singh",
+      description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
+      rent: 5000.0,
+      wifi: "Free",
+    },
+    {
+        id: 2,
+        image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
+        title: "Room Location",
+        ownerName: "Sabina Thapa",
+        description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
+        rent: 7000.0,
+        wifi: "Free",
+      }
+    // ... other products
+  ];
 
-                <Card>
-                    <Card.Img variant="top" src="holder.js/100px160" />
-                    <Card.Body>
-                    <Card.Title>Card title</Card.Title>
-                    <Card.Text>
-                        This is a wider card with supporting text below as a natural lead-in
-                        to additional content. This card has even longer content than the
-                        first to show that equal height action.
-                    </Card.Text>
-                    </Card.Body>
-                    <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
-                    </Card.Footer>
-                </Card>
-            </CardGroup>
-        </Container>
-    </>
+  return (
+    <Container fluid>
+      <Row className="justify-content-center mb-0">
+        {productData.map((product) => (
+          <Col key={product.id} md={12} xl={10} className="mb-3">
+            <Card className="shadow-0 border rounded-3 py-3 px-3">
+                <Row>
+                    {/* Image Link */}
+                    <Col>
+                        <CardImg src={product.image} alt={product.title} variant="top" />
+                    </Col>
+                    {/* Dynamic Product Details. */}
+                    <Col>
+                        <CardBody>
+                            <CardTitle>{product.title}</CardTitle>
+
+                            <div className="d-flex flex-row mb-2">
+                                {/* <Badge text="dark">
+                                    {product.rating} <i class="bi bi-file-earmark-person-fill"></i>
+                                </Badge> */}
+                                <p><b>Owner: </b> </p>
+                                <span className="ms-2">{product.ownerName} </span>
+                            </div>
+                            <CardText className="text-muted small">
+                            {product.description.slice(0, 100)}... {product.description.length > 100 && "..."}
+                            </CardText>
+                            <div className="d-flex flex-row align-items-center mb-2">
+                                <h5>Rs. <span>{product.rent}</span></h5>
+                            </div>
+                        </CardBody>
+                    </Col>
+                        <Col>
+                            <div className="d-flex flex-column mt-4">
+                                <Button variant="primary" size="sm">
+                                    Details
+                                </Button>
+                                <Button variant="outline-primary" size="sm" className="mt-2">
+                                    Book Room
+                                </Button>
+                            </div>
+                    </Col>
+                </Row>
+              
+
+              
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  );
 }
+
 export default GridCard;

@@ -22,7 +22,7 @@ const HeaderCommon=()=> {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#features">Explore Rooms</Nav.Link>
+            <Nav.Link href="/#exploreRooms">Explore Rooms</Nav.Link>
             <Nav.Link href="/#roomSearchBar">Search Rooms</Nav.Link>
             <Nav.Link href="#pricing">Near You</Nav.Link>
             <NavDropdown title="Services" id="collapsible-nav-dropdown">
