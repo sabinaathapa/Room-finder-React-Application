@@ -1,15 +1,29 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 const SearchBar = () => {
   const [searchTerm1, setSearchTerm1] = useState('');
-  const [searchTerm2, setSearchTerm2] = useState('');
+  const [searchRadius, setSearchRadius] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // Perform the search or other actions here
-    console.log('Search Terms:', searchTerm1, searchTerm2);
-  };
+    
+    try{
+      const response = await axios.get('http://localhost:8000/api/v1/mpapp/search_location/',{
+        params:{
+          search_radius:searchRadius
+  
+        }
+      }
+      )
+      alert("Successfully send the data")
+      console.log("Search Radius", response.data)
+    }
+    catch(error){
+      console.log("Error in sending data.", error)
+    }
+   };
 
   return (
     <Container className='my-5 center mx-auto' id="roomSearchBar">
@@ -31,8 +45,8 @@ const SearchBar = () => {
                 <Form.Control
                   type="text"
                   placeholder="Enter search radius..."
-                  value={searchTerm2}
-                  onChange={(e) => setSearchTerm2(e.target.value)}
+                  value={searchRadius}
+                  onChange={(e) => setSearchRadius(e.target.value)}
                 />
               </Col>
               <Col>

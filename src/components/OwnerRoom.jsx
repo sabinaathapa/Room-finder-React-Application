@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "./authUtils";
-import LocationMap from "./Location";
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const OwnerRoom = () => {
   const [roomType, setRoomType] = useState("SINGLE");
@@ -14,18 +15,17 @@ const OwnerRoom = () => {
   const [waterType, setWaterType] = useState("TANKER");
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [locationName, setLocationName] = useState("");
- 
-  const handleLocationSelect = (lat, lng) => {
-    // setLocationName(locname); 
-    setLatitude(lat);
-    setLongitude(lng);
-  };
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const { locationSearch, latitude, longitude } = location.state;
+  const handleLocationButton=()=>{
+    navigate('/location')
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const accessToken = getAccessToken();
 
     try {
@@ -59,7 +59,7 @@ const OwnerRoom = () => {
 
   
       const locationFormData = new FormData();
-      locationFormData.append("name", locationName);
+      locationFormData.append("name", locationSearch);
       locationFormData.append("latitude", latitude);
       locationFormData.append("longitude", longitude);
       locationFormData.append("room", roomResponse.data.id);  
@@ -222,17 +222,13 @@ const OwnerRoom = () => {
             />
           ))}
         </div>
-        <label>
-          Enter Location Name
-          <input type="text" onChange={(e)=>{setLocationName(e.target.value)}}/>
-        </label>
-        <button type="button" >
+         
+        <div>
+        <button onClick={handleLocationButton}>
           Select Location
         </button>
-        
-      
-      <LocationMap onLocationSelect={handleLocationSelect}/>
-       
+        </div>
+               
         <br/><button type="submit">Submit</button>
        
       </form>
