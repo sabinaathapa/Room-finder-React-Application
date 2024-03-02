@@ -1,7 +1,6 @@
 import React from "react";
 import OwnerRegistration from "./pages/OwnerRegistration";
 import TenantRegistration from "./pages/TenantRegistrationPage";
-// import Login from "./components/Login";
 import LoginPage from "./pages/Login";
 import ProfilePicture from "./components/ProfilePicture";
 import DocumentUpload from "./components/DocumentUpload";
