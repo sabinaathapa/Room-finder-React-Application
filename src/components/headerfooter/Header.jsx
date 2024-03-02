@@ -11,8 +11,8 @@ import { useAuth } from '../AuthContext';
 const HeaderCommon=()=> {
   const navigate = useNavigate();
 
-  // const { authenticated } = useAuth();
-  const authenticated = true;
+  const { authenticated } = useAuth();
+  // const authenticated = true;
 
   const LoginClick = () => {
     navigate('/login');
