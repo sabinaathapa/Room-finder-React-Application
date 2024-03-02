@@ -9,9 +9,11 @@ import Home from "./pages/Home";
 import SearchResult from "./pages/SearchResult";
 import Location from "./components/Location";
 import RoomDetailPage from "./pages/RoomDetailPage";
-import Admin from "./pages/admin";
+import OwnerPage from "./pages/owner/Owner";
 import UserProfile from "./pages/user/UserProfile";
 import MyRooms from "./pages/user/MyRooms";
+import CreatedRooms from "./pages/owner/CreatedRooms";
+import BookingRequest from "./pages/owner/BookingRequests";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const RouteApp=()=>{
@@ -28,9 +30,11 @@ const RouteApp=()=>{
             <Route path="/location" element={<Location/>}/>
             <Route path="/search-result" element={<SearchResult/>}/>
             <Route path="/get-room-details" element={<RoomDetailPage/>}/>
-            <Route path="/admin" element={<Admin/>}/>
+            <Route path="/owner-page" element={<OwnerPage/>}/>
             <Route path="/user-profile" element={<UserProfile/>}/>
             <Route path="/booked-rooms" element={<MyRooms/>}/>
+            <Route path="/created-rooms" element={<CreatedRooms/>}/>
+            <Route path="/booking-request" element={<BookingRequest/>}/>
          </Routes>
     </Router>
     );
