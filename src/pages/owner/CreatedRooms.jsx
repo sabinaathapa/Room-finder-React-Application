@@ -2,43 +2,33 @@ import React from "react";
 import OwnerHeader from "../../components/headerfooter/OwnerHeader";
 import Footer from "../../components/headerfooter/Footer";
 import { Container , Row, Table, Col, Button} from "react-bootstrap";
+import axios from "axios";
+import { getAccessToken } from "../../components/authUtils";
+import { useState } from "react";
+
 
 const CreatedRooms = ()=>{
+    const[bookedRoom, setBookedRoom] = useState([]);
 
-    const bookedRoom = [
-        {
-          id: 1,
-          image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-          locationName: "Room Location",
-          type: "Single Room",
-          coordinates: "27.123, 85.321",
-          noOfRooms:2,
-          bathroomType:"Attached",
-          kitchenSlab:true,
-          water:"BORING",
-          ownerName: "Ramesh Man Singh",
-          description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-          rent: 5000.0,
-          wifi: false,
-          status: "PENDING"
-        },
-        {
-            id: 1,
-            image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-            locationName: "Room Location",
-            type: "Single Room",
-            coordinates: "27.123, 85.321",
-            noOfRooms:2,
-            bathroomType:"Attached",
-            kitchenSlab:true,
-            water:"BORING",
-            ownerName: "Ramesh Man Singh",
-            description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-            rent: 5000.0,
-            wifi: false,
-            status: "ACCEPTED"
-          }
-      ];
+    const accessToken = getAccessToken();
+
+
+    const fetchResult = async () => {
+        try {
+            const response = axios.get(
+                "http://localhost:8000/api/v1/myapp/get-created-room/",
+                {
+                    headers: {
+                      Authorization: `Bearer ${accessToken}`,
+                      "Content-Type": "multipart/form-data",
+                    },
+                });
+                setBookedRoom((await response).data)
+        } catch (error) {
+            console.log('Error fetching rooms', error);
+        }
+    };
+
 
     let counterIndex=0;
 
@@ -73,10 +63,10 @@ const CreatedRooms = ()=>{
                             {bookedRoom.map((each)=>(
                                 <tr>
                                     <td>{++counterIndex}</td>
-                                    <td><img src="https://via.placeholder.com/150" alt="" /></td>
+                                    <td><img src={imageLink} alt="" /></td>
                                     <td>{each.locationName}</td>
                                     <td>{each.coordinates}</td>
-                                    <td>{each.type}</td>
+                                    <td>{each.roomType}</td>
                                     <td>{each.noOfRooms}</td>
                                     <td>{each.bathroomType}</td>
                                     <td>{each.kitchenSlab ? "Available" : "No"}</td>
