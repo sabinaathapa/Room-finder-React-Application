@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Form, Button , Row, Container, Col} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import { getAccessToken } from "./authUtils";
 
 const Login=()=>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [userRole, setUserRole] = useState(null);
 
-    const { checkAuthentication } = useAuth(); // Use the useAuth hook to access checkAuthentication
+     
+        const fetchUserRole = async () => {
+            try {
+                const acccessToken = getAccessToken();
+                const response = await axios.get('http://localhost:8000/api/v1/accounts/get-user-role/', {
+                    headers: {
+                        Authorization: `Bearer ${acccessToken}`,
+                    },
+                });
+                setUserRole(response.data.role);
+            } catch (error) {
+                console.log('Error fetching user role', error);
+            }
+        };
 
+       
+   
 
+    const { setAuthenticated } = useAuth(); // Use the useAuth hook to access checkAuthentication
+    console.log(setAuthenticated)
     const navigate = useNavigate();
 
     const TenantRegister = () => {
@@ -38,11 +57,16 @@ const Login=()=>{
 
             setUsername('');
             setPassword('');
-
-            alert("Login successful");
+            setAuthenticated(true);
+            navigate('/#roomSearchBar');
+            // fetchUserRole();
+            // {userRole === 'Owner' && navigate('/admin')}
+            // {userRole === 'Tenant' && navigate('/#roomSearchBar')}
+             
+            // alert("Login successful");
 
             // Check authentication after successful login
-            checkAuthentication();
+            
 
             // console.log("Authenticated: ", authen)
 
