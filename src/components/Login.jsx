@@ -3,10 +3,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { Form, Button , Row, Container, Col} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const Login=()=>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const { checkAuthentication } = useAuth(); // Use the useAuth hook to access checkAuthentication
+
 
     const navigate = useNavigate();
 
@@ -17,6 +21,8 @@ const Login=()=>{
     const OwnerRegister = () => {
         navigate('/owner-registration');
       }
+    
+
      
     const handleSubmit= async(e)=>{
         e.preventDefault();
@@ -34,6 +40,12 @@ const Login=()=>{
             setPassword('');
 
             alert("Login successful");
+
+            // Check authentication after successful login
+            checkAuthentication();
+
+            // console.log("Authenticated: ", authen)
+
         }catch(error){
             alert('Username or password incorrect');
         }

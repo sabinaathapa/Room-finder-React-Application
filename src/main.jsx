@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HeaderCommon from "./components/HeaderFooter/Header";
 // import HomeCarousel from "./components/homepage/Carousel";
 import Footer from "./components/headerfooter/Footer";
+import { AuthProvider } from "./components/AuthContext";
 
 const rootElement = document.getElementById("root");
 
@@ -12,10 +13,9 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    {/* <HeaderCommon/> */}
-    {/* <HomeCarousel/> */}
-    <App/>
-    {/* <Footer/> */}
+    <AuthProvider>
+      <App/>
+    </AuthProvider>
   </React.StrictMode>
 )
 
