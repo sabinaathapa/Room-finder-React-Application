@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Footer from "../components/headerfooter/Footer";
-import HeaderCommon from "../components/headerfooter/Header";
+import HeaderCommon from "../components/HeaderFooter/Header";
 import CarouselComponent from "../components/HomePage/Carousel";
 import SearchRoomBar from "../components/SearchRoom";
 import GridCard from "../components/GridCard";
