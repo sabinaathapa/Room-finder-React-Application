@@ -58,7 +58,13 @@ const Login=()=>{
             setUsername('');
             setPassword('');
             setAuthenticated(true);
-            navigate('/#roomSearchBar');
+
+            if(response.data.data.userRole === "Owner"){
+                navigate("/owner-page")
+            }else{
+                navigate('/#roomSearchBar');
+            }
+            
             // fetchUserRole();
             // {userRole === 'Owner' && navigate('/admin')}
             // {userRole === 'Tenant' && navigate('/#roomSearchBar')}
