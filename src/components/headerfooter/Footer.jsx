@@ -14,7 +14,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <a href='/' className='me-4 text-reset'>
+          <a href='/' className='me-4 text-reset no-underline'>
             <FontAwesomeIcon icon={faFacebookF} color='secondary' />
           </a>
           <a href='/' className='me-4 text-reset'>
@@ -48,12 +48,12 @@ const Footer = () => {
             <Col md='2' lg='2' xl='2' className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Services</h6>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='#!' className='text-reset text-decoration-none'>
                   Find Room
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='#!' className='text-reset text-decoration-none'>
                   Rent Room
                 </a>
               </p>
@@ -63,22 +63,22 @@ const Footer = () => {
             <Col md='3' lg='2' xl='2' className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='#!' className='text-reset text-decoration-none'>
                   Terms and Conditions
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='#!' className='text-reset text-decoration-none'>
                   Services
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='#!' className='text-reset text-decoration-none'>
                   Our Location
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='#!' className='text-reset text-decoration-none'>
                   Help
                 </a>
               </p>
@@ -106,7 +106,7 @@ const Footer = () => {
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-      <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
+      <a className='text-reset fw-bold text-decoration-none' href='https://mdbootstrap.com/'>
           Hamro Room
         </a>
         © 2024 Copyright:
