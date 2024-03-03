@@ -27,6 +27,15 @@ const HeaderCommon=()=> {
       navigate('/booked-rooms');
   }
 
+  const exploreRooms = () =>{
+    navigate('/explore-rooms');
+}
+
+  const handleSearchRoom = () =>{
+    navigate('/#roomSearchBar');
+  }
+
+
   return (
     
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -35,8 +44,8 @@ const HeaderCommon=()=> {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/#exploreRooms">Explore Rooms</Nav.Link>
-            <Nav.Link href="/#roomSearchBar">Search Rooms</Nav.Link>
+            <Nav.Link onClick={exploreRooms}>Explore Rooms</Nav.Link>
+            <Nav.Link onClick={handleSearchRoom}>Search Rooms</Nav.Link>
             <Nav.Link href="#pricing">Near You</Nav.Link>
 
             <NavDropdown title="Services" id="collapsible-nav-dropdown">

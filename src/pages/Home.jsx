@@ -55,19 +55,6 @@ const Home=()=>{
             <HeaderCommon/>
             <CarouselComponent/>
             <SearchRoomBar/>
-
-            <Container className="fluid my-4 px-4 py-4" id="exploreRooms" style={{ backgroundColor: "#f0f0f0" }}>
-                <div className="text-center">
-                    <h3>Explore Available Rooms</h3>
-                    <p>Below are the rooms available with us the moment. </p>
-                </div>
-                <GridCard roomDetails={rooms} roomImages={images} roomLocation={location}/>
-                <div className="text-center">
-                    <Button variant="outline-info">
-                        Explore All Rooms
-                    </Button>
-                </div>
-            </Container>
             <Footer/>
             
         </React.Fragment>

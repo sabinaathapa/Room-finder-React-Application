@@ -4,11 +4,11 @@ import Footer from "../../components/headerfooter/Footer";
 import { Container , Row, Table, Col, Button} from "react-bootstrap";
 import axios from "axios";
 import { getAccessToken } from "../../components/authUtils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 const CreatedRooms = ()=>{
-    const[bookedRoom, setBookedRoom] = useState([]);
+    const [bookedRoom, setBookedRoom] = useState([]);
 
     const accessToken = getAccessToken();
 
@@ -23,11 +23,18 @@ const CreatedRooms = ()=>{
                       "Content-Type": "multipart/form-data",
                     },
                 });
+
+                console.log("API Response:", response.data); // Log the response data
+                
                 setBookedRoom((await response).data)
         } catch (error) {
             console.log('Error fetching rooms', error);
         }
     };
+
+    useEffect(() => {
+        fetchResult(); // Call the API when the component mounts
+      }, []); // The empty dependency array ensures this effect runs once after the initial render
 
 
     let counterIndex=0;

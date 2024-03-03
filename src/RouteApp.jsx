@@ -15,6 +15,8 @@ import MyRooms from "./pages/user/MyRooms";
 import CreatedRooms from "./pages/owner/CreatedRooms";
 import BookingRequest from "./pages/owner/BookingRequests";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CreateRoomForm from "./pages/owner/CreateNewRoom";
+import ExploreRooms from "./pages/ExploreRooms";
 
 const RouteApp=()=>{
     return(
@@ -35,6 +37,9 @@ const RouteApp=()=>{
             <Route path="/booked-rooms" element={<MyRooms/>}/>
             <Route path="/created-rooms" element={<CreatedRooms/>}/>
             <Route path="/booking-request" element={<BookingRequest/>}/>
+            <Route path="/create-room" element={<CreateRoomForm/>}/>
+            <Route path="/explore-rooms" element={<ExploreRooms/>}/>
+            
          </Routes>
     </Router>
     );

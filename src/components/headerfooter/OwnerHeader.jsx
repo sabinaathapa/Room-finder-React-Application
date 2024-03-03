@@ -27,6 +27,10 @@ const OwnerHeader=()=> {
       navigate('/booked-rooms');
   }
 
+  const handleClickCreateRoom = () =>{
+    navigate('/create-room');
+}
+
   return (
     
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
