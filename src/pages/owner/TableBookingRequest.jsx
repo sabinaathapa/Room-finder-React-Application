@@ -2,42 +2,42 @@
 import React from "react";
 import { Container , Row, Table, Col, Button} from "react-bootstrap";
 
-const BookingRequestTable = ()=>{
+const BookingRequestTable = ({ bookedRoom })=>{
 
-    const bookedRoom = [
-        {
-          id: 1,
-          image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-          locationName: "Room Location",
-          type: "Single Room",
-          coordinates: "27.123, 85.321",
-          noOfRooms:2,
-          bathroomType:"Attached",
-          kitchenSlab:true,
-          water:"BORING",
-          ownerName: "Ramesh Man Singh",
-          description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-          rent: 5000.0,
-          wifi: false,
-          status: "PENDING"
-        },
-        {
-            id: 1,
-            image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-            locationName: "Room Location",
-            type: "Single Room",
-            coordinates: "27.123, 85.321",
-            noOfRooms:2,
-            bathroomType:"Attached",
-            kitchenSlab:true,
-            water:"BORING",
-            ownerName: "Ramesh Man Singh",
-            description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-            rent: 5000.0,
-            wifi: false,
-            status: "ACCEPTED"
-          }
-      ];
+    // const bookedRoom = [
+    //     {
+    //       id: 1,
+    //       image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
+    //       locationName: "Room Location",
+    //       type: "Single Room",
+    //       coordinates: "27.123, 85.321",
+    //       noOfRooms:2,
+    //       bathroomType:"Attached",
+    //       kitchenSlab:true,
+    //       water:"BORING",
+    //       ownerName: "Ramesh Man Singh",
+    //       description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
+    //       rent: 5000.0,
+    //       wifi: false,
+    //       status: "PENDING"
+    //     },
+    //     {
+    //         id: 1,
+    //         image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
+    //         locationName: "Room Location",
+    //         type: "Single Room",
+    //         coordinates: "27.123, 85.321",
+    //         noOfRooms:2,
+    //         bathroomType:"Attached",
+    //         kitchenSlab:true,
+    //         water:"BORING",
+    //         ownerName: "Ramesh Man Singh",
+    //         description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
+    //         rent: 5000.0,
+    //         wifi: false,
+    //         status: "ACCEPTED"
+    //       }
+    //   ];
 
     let counterIndex=0;
 
@@ -58,25 +58,21 @@ const BookingRequestTable = ()=>{
                 {/* ROom Details */}
                 <td>
                     <p><b>Location Name: </b> {each.locationName}</p>
-                    <p><b>Coordinates: </b>{each.coordinates}</p>
-                    <p><b>Type: </b>{each.type}</p>
+                    <p><b>Coordinates: </b>{each.latitude}, {each.longitude}</p>
+                    <p><b>Type: </b>{each.roomType}</p>
                     <p><b>No. Of Rooms: </b>{each.noOfRooms}</p>
                     <p><b>Bathroom Type: </b>{each.bathroomType}</p>
                     <p><b>Kitchen Slab: </b>{each.kitchenSlab ? "Available" : "No"}</p>
                     <p><b>Wifi: </b>{each.wifi ? "Available" : "No"}</p>
-                    <p><b>Water: </b>{each.water}</p>
+                    <p><b>Water: </b>{each.waterType}</p>
                 </td>
 
                 {/* User Details */}
                 <td>
-                    <p><b>Name: </b>{each.locationName}</p>
-                    <p><b>Email: </b>{each.coordinates}</p>
-                    <p><b>Phone: </b>{each.type}</p>
-                    <p>{each.noOfRooms}</p>
-                    <p>{each.bathroomType}</p>
-                    <p>{each.kitchenSlab ? "Available" : "No"}</p>
-                    <p>{each.wifi ? "Available" : "No"}</p>
-                    <p>{each.water}</p>
+                    <p><b>Name: </b>{each.tenantName}</p>
+                    <p><b>Email: </b>{each.tenantEmail}</p>
+                    <p><b>Phone: </b>{each.tenantPhone}</p>
+                    <p><b>Address: </b>{each.tenantAddress}</p>
                 </td>
 
 

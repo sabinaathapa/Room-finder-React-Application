@@ -15,7 +15,10 @@ const CreatedRooms = ()=>{
 
     const fetchResult = async () => {
         try {
-            const response = axios.get(
+            console.log("Fetching Created Room Details From Backend. ");
+
+
+            const response = await axios.get(
                 "http://localhost:8000/api/v1/myapp/get-created-room/",
                 {
                     headers: {
@@ -25,8 +28,9 @@ const CreatedRooms = ()=>{
                 });
 
                 console.log("API Response:", response.data); // Log the response data
-                
-                setBookedRoom((await response).data)
+
+                setBookedRoom(await response.data);
+
         } catch (error) {
             console.log('Error fetching rooms', error);
         }
@@ -67,10 +71,10 @@ const CreatedRooms = ()=>{
                         </tr>
                         </thead>
                         <tbody>
-                            {bookedRoom.map((each)=>(
+                            {bookedRoom.rooms? bookedRoom.rooms.map((each)=>(
                                 <tr>
                                     <td>{++counterIndex}</td>
-                                    <td><img src={imageLink} alt="" /></td>
+                                    <td><img src={each.imageLink} alt="" /></td>
                                     <td>{each.locationName}</td>
                                     <td>{each.coordinates}</td>
                                     <td>{each.roomType}</td>
@@ -86,7 +90,7 @@ const CreatedRooms = ()=>{
                                             </Button>
                                     </td>
                                 </tr>
-                            ))}
+                            )) : <p className="col-10 text-center"> No Rooms To Show</p>}
                         </tbody>
                     </Table>
                 </Row>
