@@ -18,8 +18,8 @@ const OwnerRoom = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-
-  const { locationSearch, latitude, longitude } = location.state;
+  const locationState = location.state || {};
+  const { locationSearch, latitude, longitude } = locationState;
   const handleLocationButton=()=>{
     navigate('/location')
   }

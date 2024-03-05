@@ -6,21 +6,22 @@ import { Form, Button , Row, Container, Col} from "react-bootstrap";
 const TenantRegistration=()=>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [verification, setVerification] = useState(false);
 
 
-    const handleSubmit= async()=>{
+    const handleSubmit= async(e)=>{
+        e.preventDefault()
         try{
             const response = await axios.post('http://localhost:8000/api/v1/accounts/register-tenant/',{
             username,
             password,
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             email,
             address,
             phone,
@@ -54,12 +55,12 @@ const TenantRegistration=()=>{
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridFirstName">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control required type="text" placeholder="Enter your first name..." value={firstName} onChange={(e)=>{setFirstName(e.target.value)}}/>
+                        <Form.Control required type="text" placeholder="Enter your first name..." value={first_name} onChange={(e)=>{setFirstName(e.target.value)}}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formGridLastName">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control required type="text" placeholder="Enter your last name..." value={lastName} onChange={(e)=>{setLastName(e.target.value)}} />
+                        <Form.Control required type="text" placeholder="Enter your last name..." value={last_name} onChange={(e)=>{setLastName(e.target.value)}} />
                         </Form.Group>
                     </Row>
 

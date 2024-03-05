@@ -14,7 +14,8 @@ const OwnerRegistration=()=>{
     const [verification, setVerification] = useState(false);
     
     
-    const handleSubmit= async()=>{
+    const handleSubmit= async(e)=>{
+        e.preventDefault()
         try{
             const response = await axios.post('http://localhost:8000/api/v1/accounts/register-owner/',{
             username,
@@ -44,7 +45,7 @@ const OwnerRegistration=()=>{
                     <br /><br /><br />
                     <h4>Registration Form</h4>
                 </Row>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formGridUsername1">
                         <Form.Label>Username</Form.Label>
                         <Form.Control required type="text" placeholder="Enter your username..." value={username} onChange={(e)=>{setUsername(e.target.value)}} />
@@ -94,7 +95,7 @@ const OwnerRegistration=()=>{
                         <Form.Check required type="checkbox" label="I agree terms and conditions"/>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    <Button variant="primary" type="submit" >
                         Submit
                     </Button>
                 </Form>
