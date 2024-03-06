@@ -1,43 +1,70 @@
 
 import React from "react";
 import { Container , Row, Table, Col, Button} from "react-bootstrap";
+import { useState } from "react";
+import axios from "axios";
+import { getAccessToken } from "../../components/authUtils";
 
 const BookingRequestTable = ({ bookedRoom })=>{
 
-    // const bookedRoom = [
-    //     {
-    //       id: 1,
-    //       image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-    //       locationName: "Room Location",
-    //       type: "Single Room",
-    //       coordinates: "27.123, 85.321",
-    //       noOfRooms:2,
-    //       bathroomType:"Attached",
-    //       kitchenSlab:true,
-    //       water:"BORING",
-    //       ownerName: "Ramesh Man Singh",
-    //       description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-    //       rent: 5000.0,
-    //       wifi: false,
-    //       status: "PENDING"
-    //     },
-    //     {
-    //         id: 1,
-    //         image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-    //         locationName: "Room Location",
-    //         type: "Single Room",
-    //         coordinates: "27.123, 85.321",
-    //         noOfRooms:2,
-    //         bathroomType:"Attached",
-    //         kitchenSlab:true,
-    //         water:"BORING",
-    //         ownerName: "Ramesh Man Singh",
-    //         description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-    //         rent: 5000.0,
-    //         wifi: false,
-    //         status: "ACCEPTED"
-    //       }
-    //   ];
+
+    const [acceptRoomBookingStatus, setacceptRoomBookingStatus] = useState(false);
+
+    const [rejectRoomBookingStatus, setrejectRoomBookingStatus] = useState(false);
+
+    const accessToken = getAccessToken();
+
+
+    const acceptBookingRequest = async (roomBookId) => {
+        try {
+            console.log("Called API to accept the room booking request.");
+
+
+            const response = await axios.get(
+                "http://localhost:8000/api/v1/myapp/accept-booking-request/?roomBookId="+roomBookId,
+                {
+                    headers: {
+                      Authorization: `Bearer ${accessToken}`,
+                      "Content-Type": "multipart/form-data",
+                    },
+                });
+
+                console.log("API Response:", response.data); // Log the response data
+
+                setacceptRoomBookingStatus(true);
+
+                window.location.reload(); // Reload the page
+
+        } catch (error) {
+            console.log('Error Accepting the Booking request.', error);
+        }
+    };
+
+
+    
+    const rejectBookingRequest = async (roomBookId) => {
+        try {
+            console.log("Called API to Reject the room booking request.");
+
+
+            const response = await axios.get(
+                "http://localhost:8000/api/v1/myapp/reject-booking-request/?roomBookId="+roomBookId,
+                {
+                    headers: {
+                      Authorization: `Bearer ${accessToken}`,
+                      "Content-Type": "multipart/form-data",
+                    },
+                });
+
+                console.log("API Response:", response.data); // Log the response data
+
+                setrejectRoomBookingStatus(true);
+                window.location.reload(); // Reload the page
+
+        } catch (error) {
+            console.log('Error Accepting the Booking request.', error);
+        }
+    };
 
     let counterIndex=0;
 
@@ -80,8 +107,8 @@ const BookingRequestTable = ({ bookedRoom })=>{
                 <td>
                     {(each.status!=="PENDING"? "No actions can be performed."
                     : <>
-                        <Button variant="outline-success" className="mx-2"> Accept  </Button>
-                        <Button variant="outline-danger">
+                        <Button variant="outline-success" className="mx-2" onClick={() => acceptBookingRequest(each.bookingTableId)}> Accept  </Button>
+                        <Button variant="outline-danger" onClick={() => rejectBookingRequest(each.bookingTableId)}>
                         Reject
                     </Button>
                     </>)}
