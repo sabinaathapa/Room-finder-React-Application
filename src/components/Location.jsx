@@ -3,9 +3,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col, Table } from 'react-bootstrap';
+import { getAccessToken } from './authUtils';
+import axios from 'axios';
 
 
-const LocationMap = ({ onLocationSelect }) => {
+const LocationMap = () => {
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
   const [latitude, setLatitude] = useState(27.7172); 
@@ -14,17 +16,76 @@ const LocationMap = ({ onLocationSelect }) => {
   const [currentZoom, setCurrentZoom] = useState(13); // Initial zoom level
 
 
-  const mapRef = useRef(null);
-  const navigate = useNavigate();
-  const handleSave = () => {
-     navigate('/room', {
-       state: { 
-         locationSearch, 
-         latitude,
-         longitude
-       }
-     });
+  const roomDetailsInStorage = localStorage.getItem("roomDetails");
+
+  const roomDetails = JSON.parse(roomDetailsInStorage);
+  // console.log("Room Details In Map Component: " + roomDetails.roomType);
+
+
+ // ************** API Calls **************************}
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const accessToken = getAccessToken();
+
+  try {
+    const formData = new FormData();
+    formData.append("room_type", roomDetails.roomType);
+    formData.append("no_of_room", roomDetails.noOfRoom);
+    formData.append("bathroom_type", roomDetails.bathroomType);
+    formData.append("kitchen_slab", roomDetails.kitchenSlab);
+    formData.append("rent", roomDetails.rent);
+    formData.append("available", true);
+    formData.append("wifi", roomDetails.wifi);
+    formData.append("water_type", roomDetails.waterType);
+    
+
+    roomDetails.images.forEach((image) => {
+      formData.append("uploaded_images", image);
+    });
+
+    const roomResponse = await axios.post(
+      "http://localhost:8000/api/v1/myapp/room-create/",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    alert("Room created successfully.");
+
+
+    const locationFormData = new FormData();
+    locationFormData.append("name", "test");
+    locationFormData.append("latitude", latitude);
+    locationFormData.append("longitude", longitude);
+    locationFormData.append("room", roomResponse.data.id);  
+
+    console.log("Location Data: ",locationSearch, "Latitude: ", latitude, "Longitude: ", longitude, "room: ", roomResponse.data.id );
+
+    const locationResponse = await axios.post(
+      "http://localhost:8000/api/v1/myapp/location/",
+      locationFormData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    alert("Location sent successfully.");
+  } catch (error) {
+    console.log("Room creation or location sending unsuccessful.", error);
   }
+};
+
+
+  // ********************* MAP *********************************
+  const mapRef = useRef(null);
 
   useEffect(() => {
     const mapInstance = L.map(mapRef.current).setView([latitude, longitude], currentZoom); // Use currentZoom for initial view
@@ -52,14 +113,13 @@ const LocationMap = ({ onLocationSelect }) => {
       if (prevZoom > mapInstance.getZoom()) {
         mapInstance.setZoom(prevZoom);
       }
-  
-      onLocationSelect("", e.latlng.lat, e.latlng.lng);
+
     });
   
     setMap(mapInstance);
   
     return () => mapInstance.remove();
-  }, [latitude, longitude, onLocationSelect, currentZoom]); // Add currentZoom to dependency
+  }, [latitude, longitude, currentZoom]); // Add currentZoom to dependency
   
   
   
@@ -72,58 +132,18 @@ const LocationMap = ({ onLocationSelect }) => {
     if (data.length > 0) {
       setLatitude(data[0].lat);
       setLongitude(data[0].lon);
+      setLocationSearch("test loc");
   
       if (map) {
         map.flyTo([data[0].lat, data[0].lon]);
       }
   
       // No need to set marker here, useEffect will handle it
-      onLocationSelect(locationSearch, data[0].lat, data[0].lon);
+      // onLocationSelect(locationSearch, data[0].lat, data[0].lon);
     }
   
     setLocationSearch('');
   };
-  
-  // useEffect(() => {
-  //   const map = L.map(mapRef.current).setView([latitude, longitude], 13);
-
-  //   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    
-  //   map.on('click', (e) => {
-  //     setMarker(L.marker(e.latlng).addTo(map));
-  //     setLatitude(e.latlng.lat);
-  //     setLongitude(e.latlng.lng);
-      
-  //     onLocationSelect("", e.latlng.lat, e.latlng.lng);
-  //   });
-
-  //   setMap(map);
-
-  //   return () => map.remove();
-  // }, [latitude, longitude, onLocationSelect]);
-
-
-  // const handleSearch = async (e) => {
-  //   e.preventDefault();
-
-  //   const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${locationSearch}&format=json`);
-  //   const data = await response.json();
-
-  //   if (data.length > 0) {
-  //     setLatitude(data[0].lat);
-  //     setLongitude(data[0].lon);
-
-  //     if (map) {
-  //       map.flyTo([data[0].lat, data[0].lon]);
-        
-  //       setMarker(L.marker([data[0].lat, data[0].lon]).addTo(map));  
-  //     }
-
-  //     onLocationSelect(locationSearch, data[0].lat, data[0].lon);
-  //   }
-
-  //   setLocationSearch('');
-  // }
 
   return (
   
@@ -175,7 +195,7 @@ const LocationMap = ({ onLocationSelect }) => {
                   </tbody>
               </Table>
 
-              <Button variant='outline-success' onClick={handleSave}>Save</Button>
+              <Button variant='outline-success' onClick={handleSubmit}>Save</Button>
               </Row>
           </Col>
       </Row>

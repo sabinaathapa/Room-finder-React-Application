@@ -5,7 +5,7 @@ import LocationMap from "../../components/Location.jsx";
 import { Container, Row } from "react-bootstrap";
 
 
-const SelectLocationPage = () =>{
+const SelectLocationPage = ({ roomDetails }) =>{
     return <>
         <OwnerHeader/>
             <Container  className="my-5 fluid">
@@ -17,10 +17,11 @@ const SelectLocationPage = () =>{
                 <Row className=" mx-2 my-4">
                     <h4>Instructions</h4>
                     <ul>
-                        <li>You can drag select the location.</li>
-                        <li>You can also type in the search bar the name of location.</li>
+                        <li>You can drag and select the location.</li>
+                        <li>You can also type in the search bar the qualified name of location.</li>
                     </ul>
                 </Row>
+
                 <LocationMap/>
             </Container>
         <Footer/>
