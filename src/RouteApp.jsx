@@ -17,6 +17,7 @@ import BookingRequest from "./pages/owner/BookingRequests";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CreateRoomForm from "./pages/owner/CreateNewRoom";
 import ExploreRooms from "./pages/ExploreRooms";
+import SelectLocationPage from "./pages/owner/SelectLocation";
 
 const RouteApp=()=>{
     return(
@@ -29,7 +30,7 @@ const RouteApp=()=>{
             <Route path="/profile-picture" element={<ProfilePicture/>}/>
             <Route path="/document-upload" element={<DocumentUpload/>}/>
             <Route path="/room" element={<Room/>}/>  
-            <Route path="/location" element={<Location/>}/>
+            <Route path="/location" element={<SelectLocationPage/>}/>
             <Route path="/search-result" element={<SearchResult/>}/>
             <Route path="/get-room-details" element={<RoomDetailPage/>}/>
             <Route path="/owner-page" element={<OwnerPage/>}/>

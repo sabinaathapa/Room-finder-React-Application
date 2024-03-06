@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Form, Button , Row, Container, Col} from "react-bootstrap";
 import axios from "axios";
 import { getAccessToken } from "./authUtils";
 import { useNavigate } from 'react-router-dom';
@@ -93,8 +94,153 @@ const OwnerRoom = () => {
 
   return (
     <React.Fragment>
+
+      <Form onSubmit={handleSubmit}>
+
+        <Row className="mb-3">
+          {/* SELECT room type  */}
+          <Form.Group as={Col} controlId="formGridRoomType">
+            <Form.Label>Select Room Type</Form.Label>
+            <Form.Select
+              required
+              name="room_type"
+              value={roomType}
+              onChange={(e) => {
+                setRoomType(e.target.value);
+              }}
+            >
+              <option value="" disabled>
+                Select room type...
+              </option>
+              <option value="SINGLE">Single</option>
+              <option value="FLAT">Flat</option>
+              <option value="MULTIPLE">Multiple</option>
+            </Form.Select>
+          </Form.Group>
+
+              {/* No. Of Rooms */}
+          <Form.Group as={Col} controlId="formGridNoOfRoom">
+          <Form.Label>No. of Rooms</Form.Label>
+          <Form.Control required placeholder="Select number of rooms..."
+                type="number"
+                value={noOfRoom}
+                onChange={(e) => {
+                  setNoOfRoom(e.target.value);
+                }} />
+          </Form.Group>
+
+        </Row>
+
+
+          <Row className="mb-3">
+              {/* Bathroom Type */}
+              <Form.Group as={Col} controlId="formGridBathroomType">
+            <Form.Label>Select Room Type</Form.Label>
+            <Form.Select
+              required
+              name="bathroom_type"
+              value={bathroomType}
+              onChange={(e) => {
+                setBathRoomType(e.target.value);
+              }}
+            >
+              <option value="" disabled>
+                Select bathroom type...
+              </option>
+              <option value="ATTACHED">Attached</option>
+              <option value="SHARING">Sharing</option>
+            </Form.Select>
+          </Form.Group>
+
+
+              {/* Rent */}
+              <Form.Group as={Col} controlId="formGridRent">
+              <Form.Label>Rent</Form.Label>
+              <Form.Control required placeholder="Enter the rent..."
+                 type="number"
+                 value={rent}
+                 onChange={(e) => {
+                   setRent(e.target.value);
+                 }}
+                />
+              </Form.Group>
+          </Row>
+
+
+          <Row className="mb-3">
+            {/* water type */}
+          <Form.Group as={Col} controlId="formGridWaterType">
+            <Form.Label>Select Water Type</Form.Label>
+            <Form.Select
+              required
+              name="water_type"
+              value={waterType}
+              onChange={(e) => {
+                setWaterType(e.target.value);
+              }}
+            >
+              <option value="" disabled>
+                Select bathroom type...
+              </option>
+              <option value="TANKER">Tanker</option>
+              <option value="BORING">Boring</option>
+              <option value="MELAMCHI">Melamchi</option>
+            </Form.Select>
+          </Form.Group>                      
+          </Row>
+
+          <Row>
+
+
+            {/* Wifi Checkbox */}
+            <Form.Group as={Col} controlId="formGridWifi">
+              <Form.Check
+                type="checkbox"
+                label="Wifi"
+                checked={wifi}
+                onChange={(e) => setWifi(e.target.checked)}
+              />
+            </Form.Group>
+
+
+             {/* Kitchen Slab Checkbox */}
+      <Form.Group as={Col} controlId="formGridKitchenSlab">
+        <Form.Check
+          type="checkbox"
+          label="Kitchen Slab"
+          checked={kitchenSlab}
+          onChange={(e) => setKitchenSlab(e.target.checked)}
+        />
+      </Form.Group>
+              
+              
+          <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>Please Select a room image: </Form.Label>
+              <Form.Control type="file"  onChange={handleImageChange} multiple/>
+
+              {imagePreviews.map((preview, index) => (
+            <img className="my-3"
+              key={index}
+              src={preview}
+              alt={`Preview ${index}`}
+              style={{
+                width:"50%"
+              }}
+            />
+          ))}
+            </Form.Group>   
+          </Row>
+
+          <Button variant="outline-info" onClick={handleLocationButton}>Proceed To Location Selection</Button>
+
+      </Form>
+
+
+
+
+
       <form onSubmit={handleSubmit}>
-        <label>
+        {/* <label>
           Room Type
           <select
             name="room_type"
@@ -108,8 +254,8 @@ const OwnerRoom = () => {
             <option value="MULTIPLE">Multiple</option>
           </select>
         </label>
-        <br />
-
+        <br /> */}
+{/* 
         <label>
           Number of Room
           <input
@@ -120,9 +266,9 @@ const OwnerRoom = () => {
             }}
           />
         </label>
-        <br />
+        <br /> */}
 
-        <label>
+        {/* <label>
           Bathroom Type
           <select
             name="bathroom_type"
@@ -130,7 +276,7 @@ const OwnerRoom = () => {
             onChange={(e) => {
               setBathRoomType(e.target.value);
             }}
-          >
+            >
             <option value="ATTACHED">Attached</option>
             <option value="SHARING">Sharing</option>
           </select>
@@ -221,7 +367,7 @@ const OwnerRoom = () => {
               }}
             />
           ))}
-        </div>
+        </div> */}
          
         <div>
         <button onClick={handleLocationButton}>
@@ -229,7 +375,7 @@ const OwnerRoom = () => {
         </button>
         </div>
                
-        <br/><button type="submit">Submit</button>
+        {/* <br/><button type="submit">Submit</button> */}
        
       </form>
     </React.Fragment>
