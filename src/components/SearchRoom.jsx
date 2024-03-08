@@ -1,29 +1,22 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 const SearchBar = () => {
   const [searchTerm1, setSearchTerm1] = useState('');
   const [searchRadius, setSearchRadius] = useState('');
 
-  const handleSubmit = async(e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) =>{
     e.preventDefault();
-    
-    try{
-      const response = await axios.get('http://localhost:8000/api/v1/mpapp/search_location/',{
-        params:{
-          search_radius:searchRadius
+    //Put the values in local Storage
+    localStorage.setItem("searchLocationName", searchTerm1);
+    localStorage.setItem("searchRadius", searchRadius);
+
+    navigate('/search-result');
+  }
   
-        }
-      }
-      )
-      alert("Successfully send the data")
-      console.log("Search Radius", response.data)
-    }
-    catch(error){
-      console.log("Error in sending data.", error)
-    }
-   };
 
   return (
     <Container className='my-5 center mx-auto' id="roomSearchBar">

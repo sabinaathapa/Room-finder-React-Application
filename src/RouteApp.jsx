@@ -6,7 +6,7 @@ import ProfilePicture from "./components/ProfilePicture";
 import DocumentUpload from "./components/DocumentUpload";
 import Room from "./components/Room";
 import Home from "./pages/Home";
-import SearchResult from "./pages/SearchResult";
+import SearchResult from './pages/SearchResult';
 import Location from "./components/Location";
 import RoomDetailPage from "./pages/RoomDetailPage";
 import OwnerPage from "./pages/owner/Owner";

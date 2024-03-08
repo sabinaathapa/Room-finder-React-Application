@@ -59,7 +59,7 @@ const LocationMap = () => {
 
 
     const locationFormData = new FormData();
-    locationFormData.append("name", "test");
+    locationFormData.append("name", locationSearch);
     locationFormData.append("latitude", latitude);
     locationFormData.append("longitude", longitude);
     locationFormData.append("room", roomResponse.data.id);  
@@ -132,7 +132,7 @@ const LocationMap = () => {
     if (data.length > 0) {
       setLatitude(data[0].lat);
       setLongitude(data[0].lon);
-      setLocationSearch("test loc");
+      setLocationSearch(data[0].display_name);
   
       if (map) {
         map.flyTo([data[0].lat, data[0].lon]);
