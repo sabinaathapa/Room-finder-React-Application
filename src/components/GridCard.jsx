@@ -7,20 +7,50 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [showModal, setShowModal] = useState(false);
   const [remarks, setRemarks] = useState('');
   const [expectedDate, setExpectedDate] = useState('');
+  const [roomId, setRoomId] = useState('');
+  const [ownerId, setOwnerId] = useState('');
+
+
 
   console.log(roomDetails)
 
   const handleBookNowClick = () => {
     setShowModal(true);
+
+    roomDetails.map((room)=>{
+      setRoomId(room.id),
+      setOwnerId(room.user)
+    })
+
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-  const handleSaveBookingRequest = (roomId, ownerId, expectedDate, remarks) => {
-    // Add logic for handling details click
-      console.log(roomId, ownerId, expectedDate, remarks);
+  const handleSaveBookingRequest = async() => {
+  
+
+    const accessToken = getAccessToken();
+
+    try{
+      const formData = new FormData();
+      formData.append('room_id', roomId),
+      formData.append('owner_id', ownerId),
+      formData.append('rented_date', expectedDate),
+      formData.append('remarks', remarks);
+       
+
+      const response = await axios.post('http://localhost:8000/api/v1/myapp/rented-room/',
+      formData,{
+        headers:{
+          Authorization:`Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+    }catch(error){
+      console.log("Erroe in sending the Booking details.")
+    }
       setShowModal(false);
   };
 
@@ -124,7 +154,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
           <Button variant="outline-danger" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="outline-primary" onClick={() => handleSaveBookingRequest(roomDetails.id, roomDetails.ownerId, expectedDate, remarks)}>
+          <Button variant="outline-primary" onClick={() => handleSaveBookingRequest()}>
             Book Now
           </Button>
         </Modal.Footer>

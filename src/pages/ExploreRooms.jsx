@@ -4,6 +4,7 @@ import HeaderCommon from "../components/HeaderFooter/Header";
 import CarouselComponent from "../components/HomePage/Carousel";
 import SearchRoomBar from "../components/SearchRoom";
 import GridCard from "../components/GridCard";
+import SearchResult from "./SearchResult";
 import { Button, Container } from "react-bootstrap";
 import axios from 'axios';
 
@@ -60,6 +61,7 @@ const ExploreRooms=()=>{
                     <p>Below are the rooms available with us the moment. </p>
                 </div>
                 <GridCard roomDetails={rooms} roomImages={images} roomLocation={location}/>
+                <SearchResult roomDetails={rooms}/>
                
             </Container>
 
