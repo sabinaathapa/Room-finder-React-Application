@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { getAccessToken} from "./authUtils";
+import { useNavigate } from "react-router-dom";
 
 const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [showModal, setShowModal] = useState(false);
@@ -10,7 +11,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [roomId, setRoomId] = useState('');
   const [ownerId, setOwnerId] = useState('');
 
-
+  const navigate = useNavigate();
 
   console.log(roomDetails)
 
@@ -24,6 +25,11 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
 
   };
 
+  const handleDetailsButton=(roomId)=>{
+     
+    navigate(`/get-room-details/${roomId}`);
+   
+  }
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -107,7 +113,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
                 </Col>
                 <Col>
                   <div className="d-flex flex-column mt-4">
-                    <Button variant="primary" size="sm">
+                    <Button variant="primary" size="sm" onClick={()=>handleDetailsButton(room.id)}>
                       Details
                     </Button>
                     <Button variant="outline-primary" size="sm" className="mt-2" onClick={handleBookNowClick}>

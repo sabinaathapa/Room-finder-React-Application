@@ -61,7 +61,6 @@ const ExploreRooms=()=>{
                     <p>Below are the rooms available with us the moment. </p>
                 </div>
                 <GridCard roomDetails={rooms} roomImages={images} roomLocation={location}/>
-                <SearchResult roomDetails={rooms}/>
                
             </Container>
 
