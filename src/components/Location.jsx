@@ -41,7 +41,7 @@ const LocationMap = () => {
     
 
     roomDetails.images.forEach((image) => {
-      formData.append("uploaded_images", image);
+      formData.set("uploaded_images", image);
     });
 
     const roomResponse = await axios.post(
