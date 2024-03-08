@@ -6,10 +6,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import App from '../../App';
 import { useAuth } from '../AuthContext';
-
+import axios from 'axios';
+import { getAccessToken } from '../authUtils';
 
 const HeaderCommon=()=> {
   const navigate = useNavigate();
+  const accessToken = getAccessToken();
 
   const { authenticated } = useAuth();
   // const authenticated = true;
@@ -34,6 +36,26 @@ const HeaderCommon=()=> {
   const handleSearchRoom = () =>{
     navigate('/#roomSearchBar');
   }
+
+  const handleLogoutClick = async () => {
+    try {
+        const response = await axios.get(
+            "http://localhost:8000/api/v1/accounts/logout/",
+            {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "multipart/form-data",
+                },
+            });
+
+            console.log("API Response:", response.data); // Log the response data
+
+            navigate('/login')
+
+    } catch (error) {
+        console.log('Error fetching rooms', error);
+    }
+  };
 
 
   return (
@@ -69,7 +91,7 @@ const HeaderCommon=()=> {
                 <NavDropdown.Item onClick={handleClickMyRooms}>Booked Rooms</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#contactUs">Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={handleLogoutClick}>Logout</NavDropdown.Item>
               </NavDropdown>
             </>
           ) : (
