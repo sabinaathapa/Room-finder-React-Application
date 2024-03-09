@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col, Table } from 'react-bootstrap';
 import { getAccessToken } from './authUtils';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 
 const LocationMap = () => {
@@ -16,11 +17,14 @@ const LocationMap = () => {
   const [currentZoom, setCurrentZoom] = useState(13); // Initial zoom level
   const [roomId, setRoomId] = useState('');
 
+  const navigate = useNavigate();
 
-  const roomDetailsInStorage = localStorage.getItem("roomDetails");
 
-  const roomDetails = JSON.parse(roomDetailsInStorage);
-  console.log("Room Image In Map Component: " + roomDetails.roomType);
+  // const roomDetailsInStorage = localStorage.getItem("roomDetails");
+
+   // const roomDetails = JSON.parse(roomDetailsInStorage);
+   const roomDetails = useLocation().state;
+  console.log("Room Image In Map Component: " + roomDetails);
 
 
  // ************** API Calls **************************}

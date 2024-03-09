@@ -99,7 +99,7 @@ const OwnerRoom = () => {
           <Row className="mb-3">
               {/* Bathroom Type */}
               <Form.Group as={Col} controlId="formGridBathroomType">
-            <Form.Label>Select Room Type</Form.Label>
+            <Form.Label>Select Bathroom Type</Form.Label>
             <Form.Select
               required
               name="bathroom_type"

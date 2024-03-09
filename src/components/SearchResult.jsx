@@ -127,34 +127,39 @@ const handleBookNowClick = (roomId, roomOwner) => {
                 <Row>
                     {/* Image Link */}
                     <Col>
-                        <CardImg key="room" src="" alt={"Room Image"} variant="top" />
+                        <CardImg key="room" src={`http://localhost:8000/media/${room.imageLink}`}  alt={"Room Image"} variant="top" />
                     </Col>
  
                      <Col>
                         <CardBody>
             
-                                <CardTitle key={room.roomId}>Location: {room.locationName}</CardTitle>
+                                <h5 key={room.roomId}>Location:</h5>
+                                <p>{room.locationName}</p>
                             
-                            <div className="d-flex flex-row mb-2">
-                                {/* <Badge text="dark">
-                                    {product.rating} <i class="bi bi-file-earmark-person-fill"></i>
-                                </Badge> */}
-                                <p><b>Owner: </b> </p>
-                                <span className="ms-2">{room.locationName} </span>
-                            </div>
-                            {/* <CardText className="text-muted small">
-                            {product.description.slice(0, 100)}... {product.description.length > 100 && "..."}
-                            </CardText> */}
-                            <div className="d-flex flex-row mb-2">
-                                <p><b>Type: </b> </p>
-                                <span className="ms-2">{room.roomType} </span>
-                            </div>
+                                <p>
+                                  <b>Owner:  </b> <span className="ms-2">{room.ownerName} </span>
+                                  <br />
+                                  <b>Type: </b> <span className="ms-2">{room.roomType} </span>
+                                  <br />
+                                  <b>Number of Rooms: </b> <span className="ms-2">{room.noOfRooms} </span>
+                                  <br />
+                                   <b>Distance: </b> <span>{room.distance}</span> KM
+                                  
+                                </p>
+
+                                <h5> Rs. <span>{room.rent}</span></h5>
+                                
+                
+                                <p></p>
+                                
                             <div className="d-flex flex-row mb-2">   
-                              <p><b>Number of Rooms: </b> </p>
-                                <span className="ms-2">{room.noOfRooms} </span>
+                             
                             </div>
                             <div className="d-flex flex-row align-items-center mb-2">
-                                <h5> Rs. <span>{room.rent}</span></h5>
+                                
+                            </div>
+                            <div className="d-flex flex-row align-items-center mb-2">
+                                
                             </div>
                         </CardBody>
                     </Col>

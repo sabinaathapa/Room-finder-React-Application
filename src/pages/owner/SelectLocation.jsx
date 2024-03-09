@@ -3,9 +3,13 @@ import OwnerHeader from '../../components/headerfooter/OwnerHeader.jsx';
 import Footer from '../../components/headerfooter/Footer.jsx';
 import LocationMap from "../../components/Location.jsx";
 import { Container, Row } from "react-bootstrap";
-
+import { useLocation } from "react-router-dom";
 
 const SelectLocationPage = ({ roomDetails }) =>{
+
+     // const roomDetails = JSON.parse(roomDetailsInStorage);
+//   const roomDetails = useLocation().state;
+
     return <>
         <OwnerHeader/>
             <Container  className="my-5 fluid">

@@ -85,7 +85,7 @@ const UserProfile = ()=>{
                                 <Form.Label><b>New Password</b></Form.Label>
                                 <Form.Control type="password" placeholder="Enter your new password..." required/>
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput">
                                 <Form.Label><b>Confirm Password</b></Form.Label>
                                 <Form.Control type="password" placeholder="Renter your password..." required/>
                             </Form.Group>
