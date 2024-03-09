@@ -4,6 +4,7 @@ import HeaderCommon from "../components/HeaderFooter/Header";
 import CarouselComponent from "../components/HomePage/Carousel";
 import SearchRoomBar from "../components/SearchRoom";
 import GridCard from "../components/GridCard";
+import SearchResult from "./SearchResult";
 import { Button, Container } from "react-bootstrap";
 import axios from 'axios';
 

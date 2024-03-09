@@ -32,7 +32,7 @@ const RouteApp=()=>{
             <Route path="/room" element={<Room/>}/>  
             <Route path="/location" element={<SelectLocationPage/>}/>
             <Route path="/search-result" element={<SearchResult/>}/>
-            <Route path="/get-room-details" element={<RoomDetailPage/>}/>
+            <Route path="/get-room-details/:roomId" element={<RoomDetailPage/>}/>
             <Route path="/owner-page" element={<OwnerPage/>}/>
             <Route path="/user-profile" element={<UserProfile/>}/>
             <Route path="/booked-rooms" element={<MyRooms/>}/>
