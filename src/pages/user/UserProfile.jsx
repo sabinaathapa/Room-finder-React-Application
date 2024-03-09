@@ -1,11 +1,12 @@
 import React from "react";
 import HeaderCommon from "../../components/HeaderFooter/Header";
 import Footer from "../../components/headerfooter/Footer";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import ProfilePicture from "../../components/ProfilePicture";
 import { getAccessToken } from "../../components/authUtils";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Form } from "react-bootstrap";
 
 // const userData = [{
 //     "username" : "Sabina Thapa", 
@@ -68,7 +69,7 @@ const UserProfile = ()=>{
                         
                     </Col>
                     <Col>
-                        <Row><h4>Your Details</h4></Row>
+                        <Row><h4>Your Details</h4>
                      
                             <>
                                 <h5><b>Username:</b> <span>{userData.username}</span></h5>
@@ -76,6 +77,21 @@ const UserProfile = ()=>{
                                 <h5><b>Email:</b> <span>{userData.email}</span></h5>
                                 <h5><b>Address:</b> <span>{userData.address}</span></h5>
                             </>
+                            </Row>
+                        <Row className="my-4">
+                            <h4>Change your password</h4>
+                            <Form>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label><b>New Password</b></Form.Label>
+                                <Form.Control type="password" placeholder="Enter your new password..." required/>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label><b>Confirm Password</b></Form.Label>
+                                <Form.Control type="password" placeholder="Renter your password..." required/>
+                            </Form.Group>
+                            <Button type="submit" variant="outline-primary">Change Password</Button>
+                            </Form>
+                        </Row>
              
                     </Col>
                 </Row>
