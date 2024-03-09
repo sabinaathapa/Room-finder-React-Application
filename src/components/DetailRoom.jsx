@@ -4,11 +4,52 @@ import { faUnderline, faWifi } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { Modal, Form } from "react-bootstrap";
 
 function DetailRoom() {
   const { roomId } = useParams();
   console.log("ID OF ROOM", roomId);
   const [roomDetails, setRoomDetails] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [remarks, setRemarks] = useState('');
+  const [expectedDate, setExpectedDate] = useState('');
+
+
+  const handleBookNowClick = () => {
+    setShowModal(true);
+
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+
+  const handleSaveBookingRequest = async() => {
+  
+
+    const accessToken = getAccessToken();
+
+    try{
+      const formData = new FormData();
+      formData.append('room_id', roomId),
+      formData.append('owner_id', roomDetails.ownerId),
+      formData.append('rented_date', expectedDate),
+      formData.append('remarks', remarks);
+       
+
+      const response = await axios.post('http://localhost:8000/api/v1/myapp/rented-room/',
+      formData,{
+        headers:{
+          Authorization:`Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+    }catch(error){
+      console.log("Erroe in sending the Booking details.")
+    }
+      setShowModal(false);
+  };
   
   useEffect(() => {
     const fetchRoomDetails = async () => {
@@ -51,7 +92,7 @@ function DetailRoom() {
                       <h4>Rs. <span>{roomDetails.rent}</span></h4>
                     </div>
                     <div className="d-flex flex-column mt-4">
-                      <Button variant="outline-primary" size="sm" className="mt-2">
+                      <Button variant="outline-primary" size="sm" className="mt-2" onClick={handleBookNowClick}>
                         Book Now
                       </Button>
                     </div>
@@ -78,6 +119,46 @@ function DetailRoom() {
             </Row>
           </Col>}
       </Row>
+
+
+      {/* Modal for booking */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Booking Details</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Expected Date: </Form.Label>
+              <Form.Control type="date" placeholder="Enter expected start date: " 
+              required
+              value={expectedDate} onChange={(e)=>{setExpectedDate(e.target.value)}} 
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Remarks:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Enter remarks"
+                value={remarks} onChange={(e)=>{setRemarks(e.target.value)}} 
+              />
+            </Form.Group>
+
+          </Form>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="outline-danger" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button variant="outline-primary" onClick={() => handleSaveBookingRequest()}>
+            Book Now
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

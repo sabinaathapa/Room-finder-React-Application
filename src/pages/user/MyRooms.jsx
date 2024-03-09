@@ -1,44 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderCommon from "../../components/HeaderFooter/Header";
 import Footer from "../../components/headerfooter/Footer";
 import { Container , Row, Table, Col, Button} from "react-bootstrap";
+import axios from "axios";
+import { getAccessToken } from "../../components/authUtils";
 
 const MyRooms = ()=>{
 
-    const bookedRoom = [
-        {
-          id: 1,
-          image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-          locationName: "Room Location",
-          type: "Single Room",
-          coordinates: "27.123, 85.321",
-          noOfRooms:2,
-          bathroomType:"Attached",
-          kitchenSlab:true,
-          water:"BORING",
-          ownerName: "Ramesh Man Singh",
-          description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-          rent: 5000.0,
-          wifi: false,
-          status: "PENDING"
-        },
-        {
-            id: 1,
-            image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp",
-            locationName: "Room Location",
-            type: "Single Room",
-            coordinates: "27.123, 85.321",
-            noOfRooms:2,
-            bathroomType:"Attached",
-            kitchenSlab:true,
-            water:"BORING",
-            ownerName: "Ramesh Man Singh",
-            description: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
-            rent: 5000.0,
-            wifi: false,
-            status: "ACCEPTED"
+    const accessToken = getAccessToken();
+    const [bookedRoom, setBookedRoom] = useState([]);
+   
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(
+              'http://localhost:8000/api/v1/myapp/get-user-requested-room/',
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  'Content-Type': 'application/json', // Update content type if needed
+                },
+              }
+            );
+      
+            setBookedRoom(response.data);
+          } catch (error) {
+            console.error('Error fetching booked rooms', error);
           }
-      ];
+        };
+      
+        fetchData(); // Call the fetchData function
+      
+        // Add an empty dependency array to ensure the effect runs only once
+      }, [accessToken]);
+   
 
     let counterIndex=0;
 
@@ -73,8 +68,8 @@ const MyRooms = ()=>{
                                 <tr>
                                     <td>{++counterIndex}</td>
                                     <td>{each.locationName}</td>
-                                    <td>{each.coordinates}</td>
-                                    <td>{each.type}</td>
+                                    <td>{each.coordinate}</td>
+                                    <td>{each.roomType}</td>
                                     <td>{each.noOfRooms}</td>
                                     <td>{each.bathroomType}</td>
                                     <td>{each.kitchenSlab ? "Available" : "No"}</td>
@@ -82,7 +77,7 @@ const MyRooms = ()=>{
                                     <td>{each.water}</td>
                                     <td>{each.status}</td>
                                     <td>
-                                        {(each.status === "ACCEPTED")? "No actions": 
+                                        {(each.status !== "PENDING" )? "No actions": 
                                            <Button variant="outline-danger">
                                            Cancel
                                    </Button>}

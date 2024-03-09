@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getAccessToken } from "./authUtils";
+import { useAuth } from "./AuthContext";
 
 
 const SearchGridCard=()=> {
@@ -17,6 +18,7 @@ const SearchGridCard=()=> {
   const [roomId, setRoomId] = useState('');
   const [ownerId, setOwnerId] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const {authenticated} = useAuth();
 
 
   //Get values of search data from local storage
@@ -65,6 +67,11 @@ const SearchGridCard=()=> {
   }, [navigate, searchLocationName, searchLat, searchLong, searchRadius, displayName]);
 
 const handleBookNowClick = (roomId, roomOwner) => {
+    if(!authenticated){
+      alert("Please Login to proceed with booking.");
+      return;
+    }
+
     setShowModal(true);
     setRoomId( roomId);
     setOwnerId( roomOwner);
@@ -74,6 +81,13 @@ const handleBookNowClick = (roomId, roomOwner) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  
+  const handleDetailsButton=(roomId)=>{
+     
+    navigate(`/get-room-details/${roomId}`);
+   
+  }
 
   const handleSaveBookingRequest = async() => {
   
@@ -165,7 +179,7 @@ const handleBookNowClick = (roomId, roomOwner) => {
                     </Col>
                         <Col>
                             <div className="d-flex flex-column mt-4">
-                                <Button variant="primary" size="sm">
+                                <Button variant="primary" size="sm" onClick={()=>handleDetailsButton(room.roomId)}>
                                     Details
                                 </Button>
                                 <Button variant="outline-primary" size="sm" className="mt-2"onClick={()=>handleBookNowClick(room.roomId, room.roomOwner)}>

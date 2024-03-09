@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, Button, Modal,
 import axios from "axios";
 import { getAccessToken} from "./authUtils";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [showModal, setShowModal] = useState(false);
@@ -11,11 +12,18 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [roomId, setRoomId] = useState('');
   const [ownerId, setOwnerId] = useState('');
 
+  const { authenticated } = useAuth();
+
   const navigate = useNavigate();
 
   console.log(roomDetails)
 
   const handleBookNowClick = () => {
+    if(!authenticated){
+      alert("Please Login to proceed with booking.");
+      return;
+    }
+
     setShowModal(true);
 
     roomDetails.map((room)=>{
@@ -35,7 +43,6 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   };
 
   const handleSaveBookingRequest = async() => {
-  
 
     const accessToken = getAccessToken();
 
@@ -63,7 +70,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   return (
     <Container fluid>
       <Row className="justify-content-center mb-0">
-        {roomDetails.map((room) => (
+        {roomDetails.map((room) => ( room.available &&
           <Col key={room.id} md={12} xl={10} className="mb-3">
             <Card className="shadow-0 border rounded-3 py-3 px-3">
               <Row>
@@ -84,13 +91,13 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
                         <CardTitle key={filteredLocation.id}>Location: {filteredLocation.name}</CardTitle>
                       ))}
                     {console.log("Location")}
-
+{/* 
                     <div className="d-flex flex-row mb-2">
                       <p>
                         <b>Owner: </b>{" "}
                       </p>
                       <span className="ms-2">{room.owner_name} </span>
-                    </div>
+                    </div> */}
                     <div className="d-flex flex-row mb-2">
                       <p>
                         <b>Type: </b>{" "}
