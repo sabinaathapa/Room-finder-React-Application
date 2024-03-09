@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, CardText, Badge, Button } from "react-bootstrap";
-import { faWifi } from "@fortawesome/free-solid-svg-icons";
+import { faUnderline, faWifi } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 
 function DetailRoom() {
   const { roomId } = useParams();
@@ -12,7 +13,7 @@ function DetailRoom() {
   useEffect(() => {
     const fetchRoomDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/myapp/room-details/${roomId}`);
+        const response = await axios.get(`http://localhost:8000/api/v1/myapp/room-details/?roomId=${roomId}`);
         setRoomDetails(response.data);
       } catch (error) {
         console.error("Error in fetching data.", error);
@@ -24,27 +25,30 @@ function DetailRoom() {
   return (
     <Container fluid>
       <Row className="justify-content-center mb-0">
-        {roomDetails && Array.isArray(roomDetails) && roomDetails.map((roomDetail) => (
-          <Col key={roomDetail.id} md={12} xl={10} className="mb-3">
+          {(roomDetails === null || roomDetails === undefined)
+          ? <h1>Loading Data</h1>
+          :<Col key={roomDetails.roomId} md={12} xl={10} className="mb-3">
             <Card className="shadow-0 border rounded-3 py-3 px-3">
               <Row>
                 <Col>
-                  <CardImg src={roomDetail.image} alt={roomDetail.title} variant="top" />
+                  <CardImg src={roomDetails.imageLink} variant="top" />
                 </Col>
                 <Col>
                   <CardBody>
-                    <h3>{roomDetail.locationName}</h3>
-                    <h6>Type: {roomDetail.type}</h6>
-                    <p><b>Owner: </b>{roomDetail.ownerName}</p>
-                    <p><b>No of rooms: </b>{roomDetail.noOfRooms}</p>
-                    <p><b>Bathroom Type: </b>{roomDetail.bathroomType}</p>
-                    <p><b>Wifi Available: </b>{roomDetail.wifi ? "Yes" : "No"}</p>
-                    <p><b>Kitchen Slab: </b>{roomDetail.kitchenSlab ? "Yes" : "No"}</p>
-                    <CardText className="text-muted small">
-                      {roomDetail.description.slice(0, 100)}... {roomDetail.description.length > 100 && "..."}
-                    </CardText>
+                    <h4>Location: </h4>
+                    <p>{roomDetails.locationName}</p>
+
+                    <p><b>Type: </b> {roomDetails.roomType}</p>
+                    {/* <p><b>Owner: </b>{roomDetails.ownerName}</p> */}
+                    <p><b>No of rooms: </b>{roomDetails.noOfRooms}</p>
+                    <p><b>Bathroom Type: </b>{roomDetails.bathroomType}</p>
+                    <p><b>Wifi Available: </b>{roomDetails.wifi ? "Yes" : "No"}</p>
+                    <p><b>Kitchen Slab: </b>{roomDetails.kitchenSlab ? "Yes" : "No"}</p>
+                    {/* <CardText className="text-muted small">
+                      {roomDetails.description.slice(0, 100)}... {roomDetails.description.length > 100 && "..."}
+                    </CardText> */}
                     <div className="d-flex flex-row align-items-center mb-2">
-                      <h4>Rs. <span>{roomDetail.rent}</span></h4>
+                      <h4>Rs. <span>{roomDetails.rent}</span></h4>
                     </div>
                     <div className="d-flex flex-column mt-4">
                       <Button variant="outline-primary" size="sm" className="mt-2">
@@ -55,8 +59,24 @@ function DetailRoom() {
                 </Col>
               </Row>
             </Card>
-          </Col>
-        ))}
+            
+            <Row className="my-3">
+              <h4>Location in Map: </h4>
+            <MapContainer
+                  center={[roomDetails.latitude, roomDetails.longitude]}
+                  zoom={40}
+                  style={{ height: '400px', width: '100%' }}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  />
+                  <Marker position={[roomDetails.latitude, roomDetails.longitude]}>
+
+                  </Marker>
+            </MapContainer>
+            </Row>
+          </Col>}
       </Row>
     </Container>
   );
