@@ -2,17 +2,53 @@ import React from "react";
 import HeaderCommon from "../../components/HeaderFooter/Header";
 import Footer from "../../components/headerfooter/Footer";
 import { Container, Row, Col } from "react-bootstrap";
+import ProfilePicture from "../../components/ProfilePicture";
+import { getAccessToken } from "../../components/authUtils";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const userData = [{
-    "username" : "Sabina Thapa", 
-    "email":"sabinathapa722@gmail.com",
-    "address":"manamaiju, KTM",
-    "phone":"9868732517"
-}]
+// const userData = [{
+//     "username" : "Sabina Thapa", 
+//     "email":"sabinathapa722@gmail.com",
+//     "address":"manamaiju, KTM",
+//     "phone":"9868732517"
+// }]
+
+
 
 const documentUploaded = false;
+const accessToken = getAccessToken();
+
 
 const UserProfile = ()=>{
+    const [userData, setUserData] = useState([]);
+
+    const fetchUserDetails = async () => {
+        try {
+            console.log("Fetching User Details From Backedn. ");
+    
+    
+            const response = await axios.get(
+                "http://localhost:8000/api/v1/myapp/get-user-details/",
+                {
+                    headers: {
+                      Authorization: `Bearer ${accessToken}`,
+                      "Content-Type": "multipart/form-data",
+                    },
+                });
+    
+                console.log("API Response:", response.data); // Log the response data
+    
+                setUserData(response.data);
+    
+        } catch (error) {
+            console.log('Error fetching rooms', error);
+        }
+    };
+    
+    useEffect(() => {
+        fetchUserDetails(); // Call the API when the component mounts
+      }, []);
 
     return <>
         <HeaderCommon/>
@@ -25,18 +61,22 @@ const UserProfile = ()=>{
 
                 <Row className="my-2">
                     <Col>
-                        <img src="https://via.placeholder.com/150" alt="" />
+                    {/* <img src="https://via.placeholder.com/150" alt="" /> */}
+                    <img src={`http://localhost:8000${userData.image}`} alt="" style={{ width: '30%' }} />
+
+                        <ProfilePicture/>
+                        
                     </Col>
                     <Col>
                         <Row><h4>Your Details</h4></Row>
-                        {userData.map((each) =>(
+                     
                             <>
-                                <h5><b>Username:</b> <span>{each.username}</span></h5>
-                                <h5><b>Phone:</b> <span>{each.phone}</span></h5>
-                                <h5><b>Email:</b> <span>{each.email}</span></h5>
-                                <h5><b>Address:</b> <span>{each.address}</span></h5>
+                                <h5><b>Username:</b> <span>{userData.username}</span></h5>
+                                <h5><b>Phone:</b> <span>{userData.phone}</span></h5>
+                                <h5><b>Email:</b> <span>{userData.email}</span></h5>
+                                <h5><b>Address:</b> <span>{userData.address}</span></h5>
                             </>
-                        ))}
+             
                     </Col>
                 </Row>
             </Container>

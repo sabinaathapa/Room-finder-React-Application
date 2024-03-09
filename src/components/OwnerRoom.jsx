@@ -33,7 +33,7 @@ const OwnerRoom = () => {
       available,
       wifi,
       waterType,
-      images,
+      images
     };
 
     console.log("Values in Room FOrm: " , roomDetails);

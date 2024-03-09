@@ -14,12 +14,13 @@ const LocationMap = () => {
   const [longitude, setLongitude] = useState(85.3240);
   const [locationSearch, setLocationSearch] = useState('');
   const [currentZoom, setCurrentZoom] = useState(13); // Initial zoom level
+  const [roomId, setRoomId] = useState('');
 
 
   const roomDetailsInStorage = localStorage.getItem("roomDetails");
 
   const roomDetails = JSON.parse(roomDetailsInStorage);
-  // console.log("Room Details In Map Component: " + roomDetails.roomType);
+  console.log("Room Image In Map Component: " + roomDetails.roomType);
 
 
  // ************** API Calls **************************}
@@ -40,7 +41,10 @@ const LocationMap = () => {
     formData.append("water_type", roomDetails.waterType);
     
 
+    console.log(roomDetails.images.length)
+
     roomDetails.images.forEach((image) => {
+      console.log("image", image);
       formData.set("uploaded_images", image);
     });
 
@@ -56,26 +60,22 @@ const LocationMap = () => {
     );
 
     alert("Room created successfully.");
+    setRoomId(roomResponse.data.id);
+
+    try {
+      const response = await axios.get(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+      );
+
+      console.log("Display Name of the location Clicked:", response.data.display_name);
+      setLocationSearch(response.data.display_name);
+    } catch (error) {
+      console.error('Error fetching location name:', error);
+    }
 
 
-    const locationFormData = new FormData();
-    locationFormData.append("name", locationSearch);
-    locationFormData.append("latitude", latitude);
-    locationFormData.append("longitude", longitude);
-    locationFormData.append("room", roomResponse.data.id);  
-
-    console.log("Location Data: ",locationSearch, "Latitude: ", latitude, "Longitude: ", longitude, "room: ", roomResponse.data.id );
-
-    const locationResponse = await axios.post(
-      "http://localhost:8000/api/v1/myapp/location/",
-      locationFormData,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    console.log("Display Name of the location Clicked:", response.data.display_name);
+    setLocationSearch(response.data.display_name);
 
     alert("Location sent successfully.");
   } catch (error) {
@@ -84,10 +84,45 @@ const LocationMap = () => {
 };
 
 
+useEffect(() => {
+  const saveLocation = async () => {
+    if (locationSearch && latitude && longitude && roomId) {
+      const accessToken = getAccessToken();
+
+      try {
+        const locationFormData = new FormData();
+        locationFormData.append("name", locationSearch);
+        locationFormData.append("latitude", latitude);
+        locationFormData.append("longitude", longitude);
+        locationFormData.append("room", roomId);
+
+        const locationResponse = await axios.post(
+          "http://localhost:8000/api/v1/myapp/location/",
+          locationFormData,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        alert("Location sent successfully.");
+      } catch (error) {
+        console.error("Error creating location:", error);
+      }
+    }
+  };
+
+  saveLocation();
+}, [locationSearch, latitude, longitude, roomId]);
+
+
   // ********************* MAP *********************************
   const mapRef = useRef(null);
 
   useEffect(() => {
+    console.log("Use Effect.")
     const mapInstance = L.map(mapRef.current).setView([latitude, longitude], currentZoom); // Use currentZoom for initial view
   
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstance);

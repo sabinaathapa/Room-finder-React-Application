@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {getAccessToken} from './authUtils';
+import { Form , Button} from "react-bootstrap";
 
 const ProfilePicture = ()=>{
     const [profilePicture, setProfilePicture] = useState('')
@@ -32,8 +33,12 @@ const ProfilePicture = ()=>{
     };
     return(
         <React.Fragment>
-            <input type="file" onChange={handleProfilePictureChange}/><br/>
-            <button onClick={handleUpload}>Upoad Profile Picture</button>
+                 <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label className="my-2"><b>Upload New Profile Picture</b></Form.Label>
+                    <Form.Control type="file"  onChange={handleProfilePictureChange}/>
+                    <Button className="my-2" variant="outline-primary" onClick={handleUpload}>Upoad Profile Picture</Button>
+                </Form.Group>
+                
         </React.Fragment>
     )
 };
