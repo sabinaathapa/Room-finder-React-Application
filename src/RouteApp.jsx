@@ -7,7 +7,9 @@ import DocumentUpload from "./components/DocumentUpload";
 import Room from "./components/Room";
 import Home from "./pages/Home";
 import SearchResult from './pages/SearchResult';
-import Location from "./components/Location";
+import LocationDeniedPage from "./pages/NearYou/LocationDeniedPage";
+import LocationAccess from "./pages/NearYou/LocationAccessPage";
+import LocationRequestModal from "./pages/NearYou/LocationRequestComponent";
 import RoomDetailPage from "./pages/RoomDetailPage";
 import OwnerPage from "./pages/owner/Owner";
 import UserProfile from "./pages/user/UserProfile";
@@ -40,7 +42,9 @@ const RouteApp=()=>{
             <Route path="/booking-request" element={<BookingRequest/>}/>
             <Route path="/create-room" element={<CreateRoomForm/>}/>
             <Route path="/explore-rooms" element={<ExploreRooms/>}/>
-            
+            <Route path="/location-request" element={<LocationRequestModal/>}/>
+            <Route path="/location-denied" element={<LocationDeniedPage/>}/>
+            <Route path="/location-access" element={<LocationAccess/>}/>
          </Routes>
     </Router>
     );

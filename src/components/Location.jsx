@@ -43,6 +43,7 @@ const LocationMap = () => {
     formData.append("available", true);
     formData.append("wifi", roomDetails.wifi);
     formData.append("water_type", roomDetails.waterType);
+    formData.append("description", roomDetails.description);
     
 
     console.log(roomDetails.images.length)

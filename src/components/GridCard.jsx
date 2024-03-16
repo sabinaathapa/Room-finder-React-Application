@@ -4,6 +4,8 @@ import axios from "axios";
 import { getAccessToken} from "./authUtils";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import HeaderCommon from "./HeaderFooter/Header";
+import Footer from "./headerfooter/Footer";
 
 const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [showModal, setShowModal] = useState(false);
@@ -70,7 +72,9 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   };
 
   return (
+    
     <Container fluid>
+
       <Row className="justify-content-center mb-0">
         {roomDetails.map((room) => ( room.available &&
           <Col key={room.id} md={12} xl={10} className="mb-3">
@@ -112,12 +116,22 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
                       </p>
                       <span className="ms-2">{room.no_of_room} </span>
                     </div>
+                    {room.description && (
+                      <div className="d-flex flex-row mb-2">
+                      <p>
+                        <b>Description:</b>{" "}
+                      </p>
+                      <span className="ms-2">{room.description}</span>
+                      </div>
+                    )}
+                   
                     <div className="d-flex flex-row align-items-center mb-2">
                       <h5>
                         {" "}
                         Rs. <span>{room.rent}</span>
                       </h5>
                     </div>
+
                   </CardBody>
                 </Col>
                 <Col>

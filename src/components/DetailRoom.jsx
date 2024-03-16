@@ -87,9 +87,14 @@ function DetailRoom() {
                     <p><b>Bathroom Type: </b>{roomDetails.bathroomType}</p>
                     <p><b>Wifi Available: </b>{roomDetails.wifi ? "Yes" : "No"}</p>
                     <p><b>Kitchen Slab: </b>{roomDetails.kitchenSlab ? "Yes" : "No"}</p>
-                    <CardText className="text-muted small">
+                    {/* <CardText className="text-muted small">
                       {roomDetails.description.slice(0, 100)}... {roomDetails.description.length > 100 && "..."}
+                    </CardText> */}
+                    {roomDetails.description && (
+                      <CardText className="text-muted small">
+                      <h6><strong>Description:</strong></h6><span>{roomDetails.description}</span>
                     </CardText>
+                    )}
                     <div className="d-flex flex-row align-items-center mb-2">
                       <h4>Rs. <span>{roomDetails.rent}</span></h4>
                     </div>

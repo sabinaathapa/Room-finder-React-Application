@@ -67,7 +67,7 @@ const HeaderCommon=()=> {
           <Nav className="me-auto">
             <Nav.Link onClick={exploreRooms}>Explore Rooms</Nav.Link>
             <Nav.Link onClick={handleSearchRoom}>Search Rooms</Nav.Link>
-            <Nav.Link href="#pricing">Near You</Nav.Link>
+            <Nav.Link href="/location-request">Near You</Nav.Link>
 
             <NavDropdown title="Services" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

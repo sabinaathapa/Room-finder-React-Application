@@ -27,11 +27,6 @@ const SearchGridCard=()=> {
   const searchRadius = localStorage.getItem("searchRadius");
 
   const navigate = useNavigate();
-
-  console.log(searchLocationName);
-  console.log(searchRadius);
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -160,6 +155,12 @@ const handleBookNowClick = (roomId, roomOwner) => {
                                   <b>Number of Rooms: </b> <span className="ms-2">{room.noOfRooms} </span>
                                   <br />
                                    <b>Distance: </b> <span>{room.distance}</span> KM
+                                  <br/>
+                                 {room.description && (
+                                    <div>
+                                    <b>Description: </b><span> {room.description}</span>
+
+                                    </div>                                 )}
                                   
                                 </p>
 
