@@ -36,6 +36,7 @@ const SearchBar = () => {
                   placeholder="Enter the location to search for..."
                   value={searchTerm1}
                   onChange={(e) => setSearchTerm1(e.target.value)}
+                  required
                 />
               </Col>
               <Col>
@@ -44,6 +45,7 @@ const SearchBar = () => {
                   placeholder="Enter search radius..."
                   value={searchRadius}
                   onChange={(e) => setSearchRadius(e.target.value)}
+                  required
                 />
               </Col>
               <Col>
