@@ -1,6 +1,46 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import styled from 'styled-components';
+
+const StyledContainer = styled(Container)`
+  // background-color: rgb(44, 51, 51);
+  color: rgb(203, 228, 222);
+
+  h2 {
+    color: rgb(14, 131, 136);
+  }
+
+  p, h5, ul, li{
+    color: rgb(44, 51, 51);
+  }
+  
+`;
+
+const StyledButton = styled(Button)`
+  background-color: rgb(14, 131, 136);
+  border-color: rgb(14, 131, 136);
+  color: rgb(203, 228, 222);
+
+  &:hover {
+    background-color: rgb(46, 79, 79);
+    border-color: rgb(46, 79, 79);
+    color: rgb(203, 228, 222);
+  }
+`;
+
+const StyledForm = styled(Form)`
+  .form-control {
+    background-color: rgb(46, 79, 79);
+    color: rgb(203, 228, 222);
+    border-color: rgb(14, 131, 136);
+  }
+
+  .form-control::placeholder {
+    color: rgb(203, 228, 222);
+    opacity: 0.6;
+  }
+`;
 
 const SearchBar = () => {
   const [searchTerm1, setSearchTerm1] = useState('');
@@ -8,7 +48,7 @@ const SearchBar = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     //Put the values in local Storage
     localStorage.setItem("searchLocationName", searchTerm1);
@@ -16,19 +56,18 @@ const SearchBar = () => {
 
     navigate('/search-result');
   }
-  
 
   return (
-    <Container className='my-5 center mx-auto' id="roomSearchBar">
+    <StyledContainer className='my-5 center mx-auto' id="roomSearchBar">
       <Row className="justify-content-center">
 
         <div className="text-center">
-        <h2>Search for a Room</h2>
-          <p>Use the search bar below to search for the room. </p>
+          <h2>Search for a Room</h2>
+          <p>Use the search bar below to search for the room.</p>
         </div>
-      
+
         <Col className="mb-1">
-          <Form onSubmit={handleSubmit}>
+          <StyledForm onSubmit={handleSubmit}>
             <Row>
               <Col md={6}>
                 <Form.Control
@@ -49,25 +88,24 @@ const SearchBar = () => {
                 />
               </Col>
               <Col>
-                <Button variant="secondary" type="submit">
+                <StyledButton variant="secondary" type="submit">
                   Search Rooms
-                </Button>
+                </StyledButton>
               </Col>
             </Row>
-          </Form>
+          </StyledForm>
 
           <br /><br />
-        <h5>Guide</h5>
-        <ul>
+          <h5>Guide</h5>
+          <ul>
             <li>Enter the location where you want a room nearby.</li>
             <li>Enter the search radius.</li>
-            <li>Hit the search button. </li>
-        </ul>
+            <li>Hit the search button.</li>
+          </ul>
         </Col>
 
-    
       </Row>
-    </Container>
+    </StyledContainer>
   );
 };
 

@@ -1,11 +1,56 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, CardImg, CardBody, CardTitle, Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
-import { getAccessToken} from "./authUtils";
+import { getAccessToken } from "./authUtils";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import HeaderCommon from "./HeaderFooter/Header";
-import Footer from "./headerfooter/Footer";
+import styled from 'styled-components';
+
+const StyledCard = styled(Card)`
+  background-color: rgba(44, 51, 51,0.85);
+  color: rgb(203, 228, 222);
+  border-color: rgb(46, 79, 79);
+
+  .card-body {
+    background-color: rgba(46, 79, 79,0.5);
+  }
+`;
+
+const StyledButton = styled(Button)`
+  background-color: rgb(14, 131, 136);
+  border-color: rgb(14, 131, 136);
+  color: rgb(203, 228, 222);
+
+  &:hover {
+    background-color: rgb(46, 79, 79);
+    border-color: rgb(46, 79, 79);
+    color: rgb(203, 228, 222);
+  }
+`;
+
+const StyledModal = styled(Modal)`
+  .modal-content {
+    background-color: rgb(44, 51, 51);
+    color: rgb(203, 228, 222);
+  }
+
+  .modal-header,
+  .modal-footer {
+    background-color: rgb(46, 79, 79);
+    border-color: rgb(46, 79, 79);
+  }
+
+  .form-control {
+    background-color: rgb(46, 79, 79);
+    color: rgb(203, 228, 222);
+    border-color: rgb(14, 131, 136);
+  }
+
+  .form-control::placeholder {
+    color: rgb(203, 228, 222);
+    opacity: 0.6;
+  }
+`;
 
 const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [showModal, setShowModal] = useState(false);
@@ -22,63 +67,58 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   console.log(roomDetails)
 
   const handleBookNowClick = () => {
-    if(!authenticated){
+    if (!authenticated) {
       alert("Please Login to proceed with booking.");
       return;
     }
 
     setShowModal(true);
 
-    roomDetails.map((room)=>{
+    roomDetails.map((room) => {
       setRoomId(room.id),
-      setOwnerId(room.user)
+        setOwnerId(room.user)
     })
 
   };
 
-  const handleDetailsButton=(roomId)=>{
-     
+  const handleDetailsButton = (roomId) => {
     navigate(`/get-room-details/${roomId}`);
-   
   }
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-  const handleSaveBookingRequest = async() => {
-
+  const handleSaveBookingRequest = async () => {
     const accessToken = getAccessToken();
 
-    try{
+    try {
       const formData = new FormData();
       formData.append('room_id', roomId),
-      formData.append('owner_id', ownerId),
-      formData.append('rented_date', expectedDate),
-      formData.append('remarks', remarks);
+        formData.append('owner_id', ownerId),
+        formData.append('rented_date', expectedDate),
+        formData.append('remarks', remarks);
       formData.append('offered_rent', offeredRent);
-       
 
       const response = await axios.post('http://localhost:8000/api/v1/myapp/rented-room/',
-      formData,{
-        headers:{
-          Authorization:`Bearer ${accessToken}`,
+        formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
         }
       })
-    }catch(error){
-      console.log("Erroe in sending the Booking details.")
+    } catch (error) {
+      console.log("Error in sending the Booking details.")
     }
-      setShowModal(false);
+    setShowModal(false);
   };
 
   return (
-    
     <Container fluid>
-
       <Row className="justify-content-center mb-0">
-        {roomDetails.map((room) => ( room.available &&
+        {roomDetails.map((room) => (room.available &&
           <Col key={room.id} md={12} xl={10} className="mb-3">
-            <Card className="shadow-0 border rounded-3 py-3 px-3">
+            <StyledCard className="shadow-0 border rounded-3 py-3 px-3">
               <Row>
                 {/* Image Link */}
                 <Col>
@@ -97,13 +137,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
                         <CardTitle key={filteredLocation.id}>Location: {filteredLocation.name}</CardTitle>
                       ))}
                     {console.log("Location")}
-{/* 
-                    <div className="d-flex flex-row mb-2">
-                      <p>
-                        <b>Owner: </b>{" "}
-                      </p>
-                      <span className="ms-2">{room.owner_name} </span>
-                    </div> */}
+
                     <div className="d-flex flex-row mb-2">
                       <p>
                         <b>Type: </b>{" "}
@@ -118,13 +152,13 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
                     </div>
                     {room.description && (
                       <div className="d-flex flex-row mb-2">
-                      <p>
-                        <b>Description:</b>{" "}
-                      </p>
-                      <span className="ms-2">{room.description}</span>
+                        <p>
+                          <b>Description:</b>{" "}
+                        </p>
+                        <span className="ms-2">{room.description}</span>
                       </div>
                     )}
-                   
+
                     <div className="d-flex flex-row align-items-center mb-2">
                       <h5>
                         {" "}
@@ -136,22 +170,22 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
                 </Col>
                 <Col>
                   <div className="d-flex flex-column mt-4">
-                    <Button variant="primary" size="sm" onClick={()=>handleDetailsButton(room.id)}>
-                      Details
-                    </Button>
-                    <Button variant="outline-primary" size="sm" className="mt-2" onClick={handleBookNowClick}>
-                      Book Room
-                    </Button>
+                    <StyledButton variant="primary" size="sm" onClick={() => handleDetailsButton(room.id)}>
+                      <strong>Details</strong>
+                    </StyledButton>
+                    <StyledButton variant="outline-primary" size="sm" className="mt-2" onClick={handleBookNowClick}>
+                      <strong>Book Room</strong>
+                    </StyledButton>
                   </div>
                 </Col>
               </Row>
-            </Card>
+            </StyledCard>
           </Col>
         ))}
       </Row>
 
       {/* Modal for booking */}
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <StyledModal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Booking Details</Modal.Title>
         </Modal.Header>
@@ -160,17 +194,17 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Expected Date: </Form.Label>
-              <Form.Control type="date" placeholder="Enter expected start date: " 
-              required
-              value={expectedDate} onChange={(e)=>{setExpectedDate(e.target.value)}} 
+              <Form.Control type="date" placeholder="Enter expected start date:"
+                required
+                value={expectedDate} onChange={(e) => { setExpectedDate(e.target.value) }}
               />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Offered Rent: </Form.Label>
-              <Form.Control type="number" placeholder="Enter expected start date: " 
-              required
-              value={offeredRent} onChange={(e)=>{setOfferedRent(e.target.value)}} 
+              <Form.Control type="number" placeholder="Enter offered rent:"
+                required
+                value={offeredRent} onChange={(e) => { setOfferedRent(e.target.value) }}
               />
             </Form.Group>
 
@@ -180,7 +214,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
                 as="textarea"
                 rows={3}
                 placeholder="Enter remarks"
-                value={remarks} onChange={(e)=>{setRemarks(e.target.value)}} 
+                value={remarks} onChange={(e) => { setRemarks(e.target.value) }}
               />
             </Form.Group>
 
@@ -188,14 +222,14 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="outline-danger" onClick={handleCloseModal}>
+          <StyledButton variant="outline-danger" onClick={handleCloseModal}>
             Close
-          </Button>
-          <Button variant="outline-primary" onClick={() => handleSaveBookingRequest()}>
+          </StyledButton>
+          <StyledButton variant="outline-primary" onClick={() => handleSaveBookingRequest()}>
             Book Now
-          </Button>
+          </StyledButton>
         </Modal.Footer>
-      </Modal>
+      </StyledModal>
     </Container>
   );
 };

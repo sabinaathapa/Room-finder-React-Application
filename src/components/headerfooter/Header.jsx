@@ -7,13 +7,53 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getAccessToken } from '../authUtils';
 import Cookies from 'js-cookie';
+import styled from 'styled-components';
 
+// Define styled components
+const StyledNavbar = styled(Navbar)`
+  background-color: rgb(44, 51, 51);
+  color: rgb(203, 228, 222);
+
+  .navbar-brand {
+    color: rgb(203, 228, 222);
+  }
+
+  .nav-link {
+    color: rgb(203, 228, 222);
+
+    &:hover {
+      color: rgb(14, 131, 136);
+    }
+  }
+  .dropdown-menu {
+    background-color: rgb(46, 79, 79);
+    color: rgb(203, 228, 222);
+
+    .dropdown-item {
+      color: rgb(203, 228, 222);
+
+      &:hover {
+        background-color: rgb(14, 131, 136);
+        color: rgb(203, 228, 222);
+      }
+    }
+  }
+`;
+const StyledButton = styled(Button)`
+  background-color: rgb(14, 131, 136);
+  border-color: rgb(14, 131, 136);
+  color: rgb(203, 228, 222);
+
+  &:hover {
+    background-color: rgb(46, 79, 79);
+    border-color: rgb(46, 79, 79);
+    color: rgb(203, 228, 222);
+  }
+`;
 const HeaderCommon=()=> {
   const navigate = useNavigate();
   const accessToken = getAccessToken();
 
-  // const { authenticated } = useAuth();
-  // const authenticated = true;
 
   const LoginClick = () => {
     navigate('/login');
@@ -59,7 +99,7 @@ const HeaderCommon=()=> {
 
   return (
     
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+    <StyledNavbar collapseOnSelect expand="lg">
       <Container>
         <Navbar.Brand href="/">Hamro Room</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -94,13 +134,13 @@ const HeaderCommon=()=> {
               </NavDropdown>
             </>
           ) : (
-            <Button variant="outline-primary" onClick={LoginClick}>Login</Button> 
+            <StyledButton variant="outline-primary" onClick={LoginClick}>Login</StyledButton> 
           )}
 
           </Nav>
         </Navbar.Collapse>
       </Container>
-    </Navbar>
+    </StyledNavbar>
   );
 }
 
