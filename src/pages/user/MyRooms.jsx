@@ -9,6 +9,28 @@ const MyRooms = ()=>{
 
     const accessToken = getAccessToken();
     const [bookedRoom, setBookedRoom] = useState([]);
+
+
+    const handleCancelBooking = async(roomId) =>{
+      try {
+        console.log("Handle Cancel booking Request. ")
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/myapp/cancel-booking-request/?id=${roomId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': 'application/json', // Update content type if needed
+            },
+          }
+        );
+
+        window.location.reload(); 
+  
+      } catch (error) {
+        console.error('Error fetching booked rooms', error);
+      }
+
+    }
    
     useEffect(() => {
         const fetchData = async () => {
@@ -77,11 +99,12 @@ const MyRooms = ()=>{
                                     <td>{each.water}</td>
                                     <td>{each.status}</td>
                                     <td>
-                                        {(each.status !== "PENDING" )? "No actions": 
-                                           <Button variant="outline-danger">
-                                           Cancel
-                                   </Button>}
-                                    </td>
+                                        {each.status !== "PENDING" ? "No actions" : (
+                                          <Button variant="outline-danger" onClick={() => handleCancelBooking(each.bookingTableId)}>
+                                            Cancel
+                                          </Button>
+                                        )}
+                                      </td>
                                 </tr>
                             ))}
                         </tbody>

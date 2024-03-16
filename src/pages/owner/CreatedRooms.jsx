@@ -74,7 +74,7 @@ const CreatedRooms = ()=>{
                             {bookedRoom.rooms? bookedRoom.rooms.map((each)=>(
                                 <tr>
                                     <td>{++counterIndex}</td>
-                                    <td><img src={each.imageLink} alt="" /></td>
+                                    <td><img src={`http://localhost:8000/${each.imageLink}`} alt="" /></td>
                                     <td>{each.locationName}</td>
                                     <td>{each.coordinates}</td>
                                     <td>{each.roomType}</td>
