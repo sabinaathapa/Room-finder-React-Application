@@ -105,7 +105,7 @@ const Login = () => {
         </Col>
         <Col>
         <h3>Already have an account?</h3>
-          <StyledForm onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="labels mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label><b>Username</b></Form.Label>
               <Form.Control type="text" placeholder="Enter your username..." value={username} onChange={(e) => { setUsername(e.target.value) }} />
@@ -117,7 +117,7 @@ const Login = () => {
             </Form.Group>
 
             <StyledButton variant="secondary" type="submit">Login</StyledButton>
-          </StyledForm>
+          </Form>
         </Col>
       </Row>
     </StyledContainer>

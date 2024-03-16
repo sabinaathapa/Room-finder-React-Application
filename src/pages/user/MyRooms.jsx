@@ -10,7 +10,6 @@ const MyRooms = ()=>{
     const accessToken = getAccessToken();
     const [bookedRoom, setBookedRoom] = useState([]);
 
-
     const handleCancelBooking = async(roomId) =>{
       try {
         console.log("Handle Cancel booking Request. ")
@@ -29,7 +28,6 @@ const MyRooms = ()=>{
       } catch (error) {
         console.error('Error fetching booked rooms', error);
       }
-
     }
    
     useEffect(() => {
@@ -64,14 +62,13 @@ const MyRooms = ()=>{
             
             <Container className="fluid my-5">
                 <Row>
-                    <h2>Booked Rooms</h2>
+                    <h2 style={{color: 'rgb(14, 131, 136)'}}>Booked Rooms</h2>
                 </Row>
 
                 <Row>
-            
-                    <Table responsive="sm" className="my-5">
+                    <Table responsive="sm" className="my-5" style={{color: 'rgb(203, 228, 222)'}}>
                         <thead>
-                        <tr>
+                        <tr style={{backgroundColor: 'rgb(14, 131, 136)'}}>
                             <th>#</th>
                             <th>Location Name</th>
                             <th>Co-Ordinates</th>
@@ -87,7 +84,7 @@ const MyRooms = ()=>{
                         </thead>
                         <tbody>
                             {bookedRoom.map((each)=>(
-                                <tr>
+                                <tr key={each.bookingTableId}>
                                     <td>{++counterIndex}</td>
                                     <td>{each.locationName}</td>
                                     <td>{each.coordinate}</td>

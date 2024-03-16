@@ -32,8 +32,6 @@ const StyledForm = styled(Form)`
   .form-label {
     color: rgb(46, 79, 79);
   }
-
-
   .form-check-input:checked {
     background-color: rgb(14, 131, 136);
   }
