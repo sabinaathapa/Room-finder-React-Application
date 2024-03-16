@@ -34,6 +34,7 @@ const OwnerRoom = () => {
       available,
       wifi,
       waterType,
+      description,
       images
     };
 
@@ -206,7 +207,7 @@ const OwnerRoom = () => {
             </Form.Group>   
           </Row>
 
-          <Button variant="outline-info" onClick={handleLocationButton}>Proceed To Location Selection</Button>
+          <Button variant="outline-info"  onClick={handleLocationButton}>Proceed To Location Selection</Button>
 
       </Form>
 
