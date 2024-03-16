@@ -35,6 +35,8 @@ const DocumentUpload = ()=>{
                 }
                 
             })
+
+            window.location.reload()
         }catch(error){
             console.log("Error in Uploading docuument.", error);
         }
@@ -42,8 +44,7 @@ const DocumentUpload = ()=>{
 
     return(
         <React.Fragment>
-            <label htmlFor="documentType">Select Document Type:</label>
-
+    
             {/* Bathroom Type */}
             <Form.Group  controlId="bathroomType">
             <Form.Label>Select Document Type</Form.Label>

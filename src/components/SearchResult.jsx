@@ -20,6 +20,7 @@ const SearchGridCard=()=> {
   const [showModal, setShowModal] = useState(false);
   const {authenticated} = useAuth();
   const [offeredRent, setOfferedRent] = useState(0);
+  const accessToken = getAccessToken();
 
 
   //Get values of search data from local storage
@@ -63,7 +64,7 @@ const SearchGridCard=()=> {
   }, [navigate, searchLocationName, searchLat, searchLong, searchRadius, displayName]);
 
 const handleBookNowClick = (roomId, roomOwner) => {
-    if(!authenticated){
+    if(accessToken === null || accessToken === undefined){
       alert("Please Login to proceed with booking.");
       return;
     }

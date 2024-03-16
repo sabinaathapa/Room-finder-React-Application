@@ -48,7 +48,7 @@ const UserProfile = () => {
         }
       );
 
-      console.log("API Response:", response1.data); // Log the response data
+      console.log("USer Profile Picture Response:", response1.data); // Log the response data
 
       setUserImage(response1.data);
 
@@ -125,8 +125,16 @@ const UserProfile = () => {
         <Row className="my-2">
           <Col md={4}>
             <div className="profile-picture-container">
-              <img src={`http://localhost:8000${userImage.image}`} alt="" className="profile-picture" />
-              <ProfilePicture />
+            {userImage === null || userImage === undefined ? (
+                <p>No Image</p>
+            ) : (
+                <img
+                src={`http://localhost:8000${userImage.image}`}
+                alt=""
+                className="profile-picture"
+                />
+            )}
+            <ProfilePicture />
             </div>
           </Col>
           <Col md={8}>
@@ -179,16 +187,19 @@ const UserProfile = () => {
         </Row>
 
         <Row className="justify-content-center">
-          {(userDocument !== undefined) ?
-            <div className="document-container">
-              <p className="document-label">Below are your uploaded documents:</p>
-              <div className="document-details">
-                <h6 className="document-type" style={{ color: 'rgb(46, 79, 79)' }}>Document Type: {userDocument.documentType}</h6>
-                <img src={`http://localhost:8000${userDocument.documentImage}`} alt="" className="document-image" />
-              </div>
-            </div>
-            : <DocumentUpload />}
-        </Row>
+  {userDocument !== undefined && userDocument !== null ? (
+    <div className="document-container">
+      <p className="document-label">Below are your uploaded documents:</p>
+      <div className="document-details">
+        <h6 className="document-type" style={{ color: 'rgb(46, 79, 79)' }}>Document Type: {userDocument.documentType}</h6>
+        <img src={`http://localhost:8000${userDocument.documentImage}`} alt="" className="document-image" />
+      </div>
+    </div>
+  ) : (
+    <DocumentUpload />
+  )}
+</Row>
+
       </Container>
       <Footer />
 

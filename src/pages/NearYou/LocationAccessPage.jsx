@@ -20,6 +20,11 @@ const LocationAccess = () => {
   const location = useLocation();
   const { latitude, longitude } = location.state || {};
   const { authenticated } = useAuth();
+  const accessToken = getAccessToken();
+
+  console.log("Access Token in LocationAccess: ", accessToken)
+
+
   useEffect(() => {
     console.log("Latitude", latitude);
     console.log("Longitude", longitude);
@@ -44,7 +49,7 @@ const LocationAccess = () => {
   }, [latitude, longitude]);
 
   const handleBookNowClick = (roomId, roomOwner) => {
-    if(!authenticated){
+    if(accessToken === null || accessToken === undefined){
         alert("Please Login to proceed with booking.");
         return;
       }
@@ -87,10 +92,10 @@ const LocationAccess = () => {
 
   return (
     <>
-      <HeaderCommon />
+      {/* <HeaderCommon /> */}
 
-      <Container className="fluid" style={{ backgroundColor: 'rgba(203, 228, 222,0.8)' }}>
-        <Row className="mx-5">
+      <Container className="fluid my-3" style={{ backgroundColor: 'rgba(203, 228, 222,0.8)' }}>
+        <Row className="mx-5 py-5">
           <h2 style={{ color: 'rgb(14, 131, 136)' }}>Rooms Near You</h2>
           <Col>
             <p><b>Proximity: </b>10 KM</p>
@@ -202,7 +207,7 @@ const LocationAccess = () => {
           </Modal.Footer>
         </Modal>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

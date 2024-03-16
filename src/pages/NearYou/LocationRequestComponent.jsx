@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import LocationAccess from "./LocationAccessPage";
+import { getAccessToken } from "../../components/authUtils";
 
 const LocationRequestModal = () => {
   const [show, setShow] = useState(true);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const accessToken  = getAccessToken();
 
   const navigate = useNavigate();
+
+  console.log("Token in Location Request :", accessToken)
 
   const handleAllowLocation = () => {
     setShow(false);

@@ -59,6 +59,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [roomId, setRoomId] = useState('');
   const [ownerId, setOwnerId] = useState('');
   const [offeredRent, setOfferedRent] = useState(0);
+  const accessToken = getAccessToken();
 
   const { authenticated } = useAuth();
 
@@ -67,7 +68,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   console.log(roomDetails)
 
   const handleBookNowClick = () => {
-    if (!authenticated) {
+    if (accessToken === null || accessToken === undefined) {
       alert("Please Login to proceed with booking.");
       return;
     }

@@ -20,6 +20,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CreateRoomForm from "./pages/owner/CreateNewRoom";
 import ExploreRooms from "./pages/ExploreRooms";
 import SelectLocationPage from "./pages/owner/SelectLocation";
+import NearYouPage from "./pages/NearYou/NearYouPage";
 
 const RouteApp=()=>{
     return(
@@ -44,7 +45,7 @@ const RouteApp=()=>{
             <Route path="/explore-rooms" element={<ExploreRooms/>}/>
             <Route path="/location-request" element={<LocationRequestModal/>}/>
             <Route path="/location-denied" element={<LocationDeniedPage/>}/>
-            <Route path="/location-access" element={<LocationAccess/>}/>
+            <Route path="/location-access" element={<NearYouPage/>}/>
          </Routes>
     </Router>
     );

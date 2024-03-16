@@ -27,6 +27,7 @@ const ProfilePicture = ()=>{
                 },
             });
             alert('Profile Picture uploaded successfully.');
+            window.location.reload();
         }catch(error){
             console.log('Unsuccessful Upload', error);
         }
