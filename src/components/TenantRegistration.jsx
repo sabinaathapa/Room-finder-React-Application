@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { Form, Button , Row, Container, Col} from "react-bootstrap";
-
+import { useNavigate } from "react-router-dom";
 
 const TenantRegistration=()=>{
     const [username, setUsername] = useState('');
@@ -12,7 +12,7 @@ const TenantRegistration=()=>{
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [verification, setVerification] = useState(false);
-
+    const navigate = useNavigate();
 
     const handleSubmit= async(e)=>{
         e.preventDefault()
@@ -27,10 +27,11 @@ const TenantRegistration=()=>{
             phone,
             verification,
         })
-        alert('Succesfully registered Owner')
+        alert('Succesfully registered Tenant')
+        navigate('/login');
         
         }catch{
-            alert('Error in registering Owner.')
+            alert('Error in registering Tenant.')
         }
     };
 
@@ -101,42 +102,6 @@ const TenantRegistration=()=>{
             </Col>
         </Container>
 
-        // <React.Fragment>
-        //     <h1>Tenant Registration</h1>
-        //     <label>Username
-        //     <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}}/>
-        //     </label><br/>
-
-        //     <label>Password
-        //     <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
-        //     </label><br/>
-
-        //     <label>First Name 
-        //     <input type="text" value={firstName} onChange={(e)=>{setFirstName(e.target.value)}}/>
-        //     </label><br/>
-
-        //     <label>Last Name
-        //     <input type="text" value={lastName} onChange={(e)=>{setLastName(e.target.value)}}/>
-        //     </label><br/>
-
-        //     <label>Email 
-        //     <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
-        //     </label><br/>
-
-        //     <label>Address 
-        //     <input type="text" value={address} onChange={(e)=>{setAddress(e.target.value)}}/>
-        //     </label><br/>
-
-        //     <label>Phone
-        //     <input type="number" value={phone} onChange={(e)=>{setPhone(e.target.value)}}/>
-        //     </label><br/>
-
-        //     <label>Verification
-        //     <input type="checkbox" value={verification} onChange={(e)=>{setVerification(!verification)}}/>
-        //     </label><br/>
-
-        //     <button onClick={handleSubmit}>Register</button>
-        // </React.Fragment>
     )
 
 };

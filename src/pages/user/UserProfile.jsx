@@ -8,12 +8,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
 
-// const userData = [{
-//     "username" : "Sabina Thapa", 
-//     "email":"sabinathapa722@gmail.com",
-//     "address":"manamaiju, KTM",
-//     "phone":"9868732517"
-// }]
 
 const documentUploaded = false;
 const accessToken = getAccessToken();
@@ -133,7 +127,7 @@ const UserProfile = ()=>{
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput">
                                 <Form.Label><b>Confirm Password</b></Form.Label>
                                 <Form.Control type="password" 
-                                placeholder="Renter your password..." 
+                                placeholder="Re-enter your password..." 
                                 required
                                 value={confirmPassword}
                                 onChange={(e)=>setConfirmPassword(e.target.value)}/>

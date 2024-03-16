@@ -4,8 +4,6 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
-import App from '../../App';
-import { useAuth } from '../AuthContext';
 import axios from 'axios';
 import { getAccessToken } from '../authUtils';
 

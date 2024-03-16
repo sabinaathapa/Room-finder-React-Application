@@ -16,6 +16,7 @@ const OwnerRoom = () => {
   const [waterType, setWaterType] = useState("TANKER");
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -176,8 +177,18 @@ const OwnerRoom = () => {
           onChange={(e) => setKitchenSlab(e.target.checked)}
         />
       </Form.Group>
-              
-              
+              {/* Description of room */}
+      <Form.Group as={Row} controlId="formGridDescription">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+      </Form.Group>
+
+
           <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Please Select a room image: </Form.Label>
               <Form.Control type="file"  onChange={handleImageChange} multiple/>

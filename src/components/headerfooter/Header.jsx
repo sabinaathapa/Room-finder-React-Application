@@ -4,16 +4,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
-import App from '../../App';
-import { useAuth } from '../AuthContext';
 import axios from 'axios';
 import { getAccessToken } from '../authUtils';
+import Cookies from 'js-cookie';
 
 const HeaderCommon=()=> {
   const navigate = useNavigate();
   const accessToken = getAccessToken();
 
-  const { authenticated } = useAuth();
+  // const { authenticated } = useAuth();
   // const authenticated = true;
 
   const LoginClick = () => {
@@ -47,7 +46,7 @@ const HeaderCommon=()=> {
                   "Content-Type": "multipart/form-data",
                 },
             });
-
+            Cookies.remove('access_token');
             console.log("API Response:", response.data); // Log the response data
 
             navigate('/login')
@@ -84,7 +83,7 @@ const HeaderCommon=()=> {
           </Nav>
           <Nav>
 
-            {authenticated ? (
+            {accessToken ? (
             <>
               <NavDropdown title="Profile" id="collapsible-nav-dropdown">
                 <NavDropdown.Item onClick={handleClickViewProfile}>View Profile</NavDropdown.Item>

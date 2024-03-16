@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
 import { Form, Button , Row, Container, Col} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const OwnerRegistration=()=>{
     const [username, setUsername] = useState('');
@@ -12,7 +12,8 @@ const OwnerRegistration=()=>{
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [verification, setVerification] = useState(false);
-    
+    const navigate = useNavigate();
+
     
     const handleSubmit= async(e)=>{
         e.preventDefault()
@@ -28,7 +29,7 @@ const OwnerRegistration=()=>{
             verification,
         })
         alert('Succesfully registered Owner');
-        
+        navigate('/login');
         }catch{
             alert('Error in registering Owner.')
         }

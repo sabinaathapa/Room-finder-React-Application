@@ -100,6 +100,8 @@ const BookingRequestTable = ({ bookedRoom })=>{
                     <p><b>Email: </b>{each.tenantEmail}</p>
                     <p><b>Phone: </b>{each.tenantPhone}</p>
                     <p><b>Address: </b>{each.tenantAddress}</p>
+                    <p><b>Expected Date:</b>{each.expectedDate}</p>
+                    <p><b>Remarks:</b>{each.remarks}</p>
                 </td>
 
 

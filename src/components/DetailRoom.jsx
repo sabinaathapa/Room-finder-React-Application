@@ -5,10 +5,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Modal, Form } from "react-bootstrap";
+import { getAccessToken } from "./authUtils";
 
 function DetailRoom() {
   const { roomId } = useParams();
-  console.log("ID OF ROOM", roomId);
   const [roomDetails, setRoomDetails] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [remarks, setRemarks] = useState('');
@@ -85,9 +85,9 @@ function DetailRoom() {
                     <p><b>Bathroom Type: </b>{roomDetails.bathroomType}</p>
                     <p><b>Wifi Available: </b>{roomDetails.wifi ? "Yes" : "No"}</p>
                     <p><b>Kitchen Slab: </b>{roomDetails.kitchenSlab ? "Yes" : "No"}</p>
-                    {/* <CardText className="text-muted small">
+                    <CardText className="text-muted small">
                       {roomDetails.description.slice(0, 100)}... {roomDetails.description.length > 100 && "..."}
-                    </CardText> */}
+                    </CardText>
                     <div className="d-flex flex-row align-items-center mb-2">
                       <h4>Rs. <span>{roomDetails.rent}</span></h4>
                     </div>

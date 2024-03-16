@@ -36,7 +36,7 @@ const ProfilePicture = ()=>{
                  <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label className="my-2"><b>Upload New Profile Picture</b></Form.Label>
                     <Form.Control type="file"  onChange={handleProfilePictureChange}/>
-                    <Button className="my-2" variant="outline-primary" onClick={handleUpload}>Upoad Profile Picture</Button>
+                    <Button className="my-2" variant="outline-primary" onClick={handleUpload}>Upload Profile Picture</Button>
                 </Form.Group>
                 
         </React.Fragment>
