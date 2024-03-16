@@ -13,6 +13,7 @@ function DetailRoom() {
   const [showModal, setShowModal] = useState(false);
   const [remarks, setRemarks] = useState('');
   const [expectedDate, setExpectedDate] = useState('');
+  const [offeredRent, setOfferedRent] = useState(0);
 
 
   const handleBookNowClick = () => {
@@ -36,6 +37,7 @@ function DetailRoom() {
       formData.append('owner_id', roomDetails.ownerId),
       formData.append('rented_date', expectedDate),
       formData.append('remarks', remarks);
+      formData.append('offered_rent', offeredRent);
        
 
       const response = await axios.post('http://localhost:8000/api/v1/myapp/rented-room/',
@@ -134,6 +136,14 @@ function DetailRoom() {
               <Form.Control type="date" placeholder="Enter expected start date: " 
               required
               value={expectedDate} onChange={(e)=>{setExpectedDate(e.target.value)}} 
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Offered Rent: </Form.Label>
+              <Form.Control type="number" placeholder="Enter expected start date: " 
+              required
+              value={offeredRent} onChange={(e)=>{setOfferedRent(e.target.value)}} 
               />
             </Form.Group>
 

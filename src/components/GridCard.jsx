@@ -11,6 +11,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
   const [expectedDate, setExpectedDate] = useState('');
   const [roomId, setRoomId] = useState('');
   const [ownerId, setOwnerId] = useState('');
+  const [offeredRent, setOfferedRent] = useState(0);
 
   const { authenticated } = useAuth();
 
@@ -52,6 +53,7 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
       formData.append('owner_id', ownerId),
       formData.append('rented_date', expectedDate),
       formData.append('remarks', remarks);
+      formData.append('offered_rent', offeredRent);
        
 
       const response = await axios.post('http://localhost:8000/api/v1/myapp/rented-room/',
@@ -147,6 +149,14 @@ const GridCard = ({ roomDetails, roomImages, roomLocation }) => {
               <Form.Control type="date" placeholder="Enter expected start date: " 
               required
               value={expectedDate} onChange={(e)=>{setExpectedDate(e.target.value)}} 
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Offered Rent: </Form.Label>
+              <Form.Control type="number" placeholder="Enter expected start date: " 
+              required
+              value={offeredRent} onChange={(e)=>{setOfferedRent(e.target.value)}} 
               />
             </Form.Group>
 

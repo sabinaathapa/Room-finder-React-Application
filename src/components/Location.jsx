@@ -177,8 +177,6 @@ useEffect(() => {
         map.flyTo([data[0].lat, data[0].lon]);
       }
   
-      // No need to set marker here, useEffect will handle it
-      // onLocationSelect(locationSearch, data[0].lat, data[0].lon);
     }
   
     setLocationSearch('');
