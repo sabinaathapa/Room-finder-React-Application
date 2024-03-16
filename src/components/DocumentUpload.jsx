@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {getAccessToken} from './authUtils';
 import axios from "axios";
+import { Form , Button} from "react-bootstrap";
 
 
 const DocumentUpload = ()=>{
@@ -42,17 +43,33 @@ const DocumentUpload = ()=>{
     return(
         <React.Fragment>
             <label htmlFor="documentType">Select Document Type:</label>
-            <select id="documentType" value={documentType} onChange={handleDocumentTypeChange}>
-                <option value="">Select Document Type</option>
-                <option value="CITIZENSHIP">Citizenship</option>
+
+            {/* Bathroom Type */}
+            <Form.Group  controlId="bathroomType">
+            <Form.Label>Select Document Type</Form.Label>
+            <Form.Select
+              required
+              id="documentType" 
+              value={documentType} 
+              onChange={handleDocumentTypeChange}
+            >
+              <option value="" disabled>
+                Select document type...
+              </option>
+              <option value="CITIZENSHIP">Citizenship</option>
                 <option value="LISCENCE">Liscence</option>
-            </select><br/>
+            </Form.Select>
+          </Form.Group>
 
-            <label htmlFor="documentImage">Upload Document Image</label>
-            <input type="file" onChange={handleDocumentImageChange}/>
-            <br/>
+          <Form.Group controlId="documentImage" className="mb-3">
+              <Form.Label>Please upload image of document: </Form.Label>
+              <Form.Control type="file" onChange={handleDocumentImageChange}/>
 
-            <button onClick={handleUpload}>Upload Document</button>
+    
+            </Form.Group> 
+    
+
+            <Button variant="outline-primary" onClick={handleUpload}>Upload Document</Button>
         </React.Fragment>
 
     )

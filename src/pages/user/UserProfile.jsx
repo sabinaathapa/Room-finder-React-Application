@@ -7,6 +7,7 @@ import { getAccessToken } from "../../components/authUtils";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
+import DocumentUpload from "../../components/DocumentUpload";
 
 
 const documentUploaded = false;
@@ -18,6 +19,8 @@ const UserProfile = ()=>{
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [userImage, setUserImage] = useState(' ');
+    const [userDocument, setUserDocument] = useState(' ');
 
     const fetchUserDetails = async () => {
         try {
@@ -36,6 +39,36 @@ const UserProfile = ()=>{
                 console.log("API Response:", response.data); // Log the response data
     
                 setUserData(response.data);
+
+            const response1 = await axios.get(
+                "http://localhost:8000/api/v1/myapp/get-profile-picture/",
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+    
+            console.log("API Response:", response1.data); // Log the response data
+
+            setUserImage(response1.data);
+
+
+
+            
+        const documentResposne = await axios.get(
+            "http://localhost:8000/api/v1/myapp/get-document-picture/",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            console.log("User Document Response:", documentResposne.data); // Log the response data
+
+            setUserDocument(documentResposne.data);
+
     
         } catch (error) {
             console.log('Error fetching rooms', error);
@@ -98,7 +131,7 @@ const UserProfile = ()=>{
                 <Row className="my-2">
                     <Col>
                     {/* <img src="https://via.placeholder.com/150" alt="" /> */}
-                    <img src={`http://localhost:8000${userData.image}`} alt="" style={{ width: '30%' }} />
+                    <img src={`http://localhost:8000${userImage.image}`} alt="" style={{ width: '30%' }} />
 
                         <ProfilePicture/>
                         
@@ -149,11 +182,17 @@ const UserProfile = ()=>{
                 </Row>
 
                 <Row>
-                    {documentUploaded ? 
+                    {(userDocument !== undefined ) ? 
                         <>
                             <p>Below are you uploaded document: </p>
+
+                            <Row>
+                                <h6>Document Type: {userDocument.documentType}</h6>
+                             <img src={`http://localhost:8000${userDocument.documentImage}`} alt="" style={{ width: '30%' }} />
+                            </Row>
+                            
                         </>
-                    : <p>Please Upload.</p>}
+                    : <DocumentUpload/>}
                 </Row>
             </Container>
         <Footer/>
