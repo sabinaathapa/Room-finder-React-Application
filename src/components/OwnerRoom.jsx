@@ -179,7 +179,7 @@ const OwnerRoom = () => {
         />
       </Form.Group>
               {/* Description of room */}
-      <Form.Group as={Row} controlId="formGridDescription">
+      <Form.Group  controlId="formGridDescription">
           <Form.Label>Description</Form.Label>
           <Form.Control
             as="textarea"
