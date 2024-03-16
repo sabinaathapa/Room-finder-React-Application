@@ -13,12 +13,9 @@ const StyledContainer = styled(Container)`
 
   h3, p, h5, .labels{
     color: rgb(46, 79, 79);
-  }
-   
+  } 
 ;
-  `
-  
-
+`
 const StyledButton = styled(Button)`
   background-color: rgb(14, 131, 136);
   border-color: rgb(14, 131, 136);
@@ -31,18 +28,6 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const StyledForm = styled(Form)`
-  .form-control {
-    background-color: rgb(46, 79, 79);
-    color: rgb(203, 228, 222);
-    border-color: rgb(14, 131, 136);
-  }
-
-  .form-control::placeholder {
-    color: rgb(203, 228, 222);
-    opacity: 0.6;
-  }
-`;
 
 const Login = () => {
   const [username, setUsername] = useState('');
