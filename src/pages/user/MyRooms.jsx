@@ -60,6 +60,7 @@ const MyRooms = ()=>{
                             <th>Wifi</th>
                             <th>Water</th>
                             <th>Status</th>
+                            <th>Prediction</th>
                             <th>Action</th>
                         </tr>
                         </thead>

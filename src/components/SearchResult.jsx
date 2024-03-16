@@ -19,6 +19,7 @@ const SearchGridCard=()=> {
   const [ownerId, setOwnerId] = useState('');
   const [showModal, setShowModal] = useState(false);
   const {authenticated} = useAuth();
+  const [offeredRent, setOfferedRent] = useState(0);
 
 
   //Get values of search data from local storage
@@ -100,6 +101,7 @@ const handleBookNowClick = (roomId, roomOwner) => {
       formData.append('owner_id', ownerId),
       formData.append('rented_date', expectedDate),
       formData.append('remarks', remarks);
+      formData.append('offered_rent', offeredRent);
        
 
       const response = await axios.post('http://localhost:8000/api/v1/myapp/rented-room/',
@@ -209,6 +211,14 @@ const handleBookNowClick = (roomId, roomOwner) => {
               <Form.Control type="date" placeholder="Enter expected start date: " 
               required
               value={expectedDate} onChange={(e)=>{setExpectedDate(e.target.value)}} 
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Offered Rent: </Form.Label>
+              <Form.Control type="number" placeholder="Enter expected start date: " 
+              required
+              value={offeredRent} onChange={(e)=>{setOfferedRent(e.target.value)}} 
               />
             </Form.Group>
 
