@@ -16,8 +16,19 @@ const LocationMap = () => {
   const [locationSearch, setLocationSearch] = useState('');
   const [currentZoom, setCurrentZoom] = useState(13); // Initial zoom level
   const [roomId, setRoomId] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
   const navigate = useNavigate();
+
+  const fetchSuggestions = async (value) => {
+    try {
+      const response = await axios.get(`https://nominatim.openstreetmap.org/search?q=${value}&format=json`);
+      setSuggestions(response.data);
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+    }
+  };
 
 
   // const roomDetailsInStorage = localStorage.getItem("roomDetails");
@@ -90,6 +101,15 @@ const LocationMap = () => {
 
 
 useEffect(() => {
+  if (inputValue.trim().length > 0) {
+    fetchSuggestions(inputValue);
+  } else {
+    setSuggestions([]);
+  }
+}, [inputValue]);
+
+
+useEffect(() => {
   const saveLocation = async () => {
     if (locationSearch && latitude && longitude && roomId) {
       const accessToken = getAccessToken();
@@ -113,6 +133,7 @@ useEffect(() => {
         );
 
         alert("Location sent successfully.");
+        navigate("/owner-page");
       } catch (error) {
         console.error("Error creating location:", error);
       }
@@ -153,6 +174,16 @@ useEffect(() => {
       if (prevZoom > mapInstance.getZoom()) {
         mapInstance.setZoom(prevZoom);
       }
+
+
+       // Reverse geocode the clicked coordinates to get the location name
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
+      .then(response => response.json())
+      .then(data => {
+        setInputValue(data.display_name); // Update the search bar input value
+        setLocationSearch(data.display_name); // Update the locationSearch state
+      })
+      .catch(error => console.error('Error fetching location name:', error));
 
     });
   
@@ -199,14 +230,47 @@ useEffect(() => {
                     {/* <Form.Label><b>Search Location</b></Form.Label> */}
                     <Form.Control
                       required
-                      placeholder="Select number of rooms..."
+                      placeholder="Search location..."
                       type="text"
-                      value={locationSearch}
-                      onChange={(e) => setLocationSearch(e.target.value)}
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
                     />
                   </Form.Group>
 
-                  <Button type="submit" className='my-2 text-center'>Search</Button>
+                  <div style={{ position: 'relative' }}>
+                    {suggestions.length > 0 && (
+                      <ul
+                        style={{
+                          position: 'absolute',
+                          zIndex: 1,
+                          backgroundColor: 'white',
+                          listStyle: 'none',
+                          margin: 0,
+                          padding: 0,
+                          width: '100%',
+                          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                        }}
+                      >
+                        {suggestions.map((suggestion) => (
+                          <li
+                            key={suggestion.place_id}
+                            style={{ padding: '8px 12px', cursor: 'pointer' }}
+                            onClick={() => {
+                              setInputValue(suggestion.display_name);
+                              setLatitude(suggestion.lat);
+                              setLongitude(suggestion.lon);
+                              setLocationSearch(suggestion.display_name);
+                              setSuggestions([]);
+                            }}
+                          >
+                            {suggestion.display_name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  {/* <Button type="submit" className='my-2 text-center'>Search</Button> */}
 
               </Form>
 
