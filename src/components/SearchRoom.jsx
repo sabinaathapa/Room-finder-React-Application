@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const StyledContainer = styled(Container)`
   // background-color: rgb(44, 51, 51);
@@ -45,13 +47,35 @@ const StyledForm = styled(Form)`
 const SearchBar = () => {
   const [searchTerm1, setSearchTerm1] = useState('');
   const [searchRadius, setSearchRadius] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
   const navigate = useNavigate();
+
+
+  const fetchSuggestions = async (value) => {
+    try {
+      const response = await axios.get(
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${value}&apiKey=a8a787e19c3646bca1b000ac885a306c`
+      );
+      setSuggestions(response.data.features);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (inputValue.trim().length > 0) {
+      fetchSuggestions(inputValue);
+    } else {
+      setSuggestions([]);
+    }
+  }, [inputValue]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //Put the values in local Storage
-    localStorage.setItem("searchLocationName", searchTerm1);
+    localStorage.setItem("searchLocationName", inputValue);
     localStorage.setItem("searchRadius", searchRadius);
 
     navigate('/search-result');
@@ -70,13 +94,43 @@ const SearchBar = () => {
           <StyledForm onSubmit={handleSubmit}>
             <Row>
               <Col md={6}>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter the location to search for..."
-                  value={searchTerm1}
-                  onChange={(e) => setSearchTerm1(e.target.value)}
-                  required
-                />
+              <Form.Control
+  type="text"
+  placeholder="Enter the location to search for..."
+  value={inputValue}
+  onChange={(e) => setInputValue(e.target.value)}
+  required
+/>
+<div style={{ position: 'relative' }}>
+    {suggestions.length > 0 && (
+      <ul
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          backgroundColor: 'white',
+          listStyle: 'none',
+          margin: 0,
+          padding: 0,
+          width: '100%',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+        }}
+      >
+        {suggestions.map((suggestion) => (
+          <li
+            key={suggestion.properties.id}
+            style={{ padding: '8px 12px', cursor: 'pointer' }}
+            onClick={() => {
+              setInputValue(suggestion.properties.formatted);
+              setSearchTerm1(suggestion.properties.formatted);
+              setSuggestions([]);
+            }}
+          >
+            {suggestion.properties.formatted}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
               </Col>
               <Col>
                 <Form.Control

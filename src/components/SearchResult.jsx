@@ -31,7 +31,7 @@ const SearchGridCard=()=> {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${searchLocationName},Nepal&format=json`);
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${searchLocationName}&format=json`);
         const data = await response.json();
 
         if (data.length > 0) {
