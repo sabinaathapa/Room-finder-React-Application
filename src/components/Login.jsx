@@ -78,7 +78,10 @@ const Login = () => {
 
       if (response.data.data.userRole === "Owner") {
         navigate("/owner-page")
-      } else {
+      }else if(response.data.data.userRole === "Admin"){
+        navigate("/admin-page");
+      }
+      else {
         navigate('/#roomSearchBar');
       }
 

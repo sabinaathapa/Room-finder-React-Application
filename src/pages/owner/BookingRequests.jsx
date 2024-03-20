@@ -65,7 +65,7 @@ const BookingRequest = ()=>{
                         onSelect={(eventKey) => handleTabClick(eventKey)}
                         >
                             <Tab eventKey="PENDING" title="Pending">
-                                Blow are the rooms booking requests that needs your actions: 
+                                Below are the rooms booking requests that needs your actions: 
                                 
                                 {
                                 (bookedRoom.length!==0)
