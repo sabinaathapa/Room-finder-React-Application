@@ -21,6 +21,7 @@ import CreateRoomForm from "./pages/owner/CreateNewRoom";
 import ExploreRooms from "./pages/ExploreRooms";
 import SelectLocationPage from "./pages/owner/SelectLocation";
 import NearYouPage from "./pages/NearYou/NearYouPage";
+import AdminPage from "./pages/admin/AdminPanel";
 
 const RouteApp=()=>{
     return(
@@ -46,6 +47,7 @@ const RouteApp=()=>{
             <Route path="/location-request" element={<LocationRequestModal/>}/>
             <Route path="/location-denied" element={<LocationDeniedPage/>}/>
             <Route path="/location-access" element={<NearYouPage/>}/>
+            <Route path="/admin-page" element={<AdminPage/>}/>
          </Routes>
     </Router>
     );
